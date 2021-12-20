@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&family=Oswald&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 20px;
+}
+
+body {
+  width: 100%;
+  margin: auto;
+  font-family: "Fira Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.align {
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  margin: 30px;
+  color: orange;
+  font-size: 50px;
+}
+
+.fa-plus-square {
+  color: orange;
+  margin: 15px;
+  font-size: 30px;
+}
+.fa-plus-square:hover {
+  color: #b37400;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.addProject {
+  font-size: 25px;
+  display: flex;
+  margin: 15px;
+}
+.addProject:hover, .addProject:hover > .fa-plus-square {
+  color: #b37400;
+}
+
+#projects {
+  width: 100%;
+}
+
+.project {
+  border: 1px solid #dedede;
+  border-radius: 10px;
+  margin: 25px;
+  width: 30%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0, rgba(255, 255, 255, 0.05) 0 0 0 1px inset;
+}
+
+h2 {
+  background-color: #dedede;
+  padding: 10px;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.width_10 {
+  width: 10%;
+}
+
+.width_20 {
+  width: 20%;
+}
+
+.width_30 {
+  width: 30%;
+}
+
+.width_40 {
+  width: 40%;
+}
+
+.width_50 {
+  width: 50%;
+}
+
+.width_60 {
+  width: 60%;
+}
+
+.width_70 {
+  width: 70%;
+}
+
+.width_80 {
+  width: 80%;
+}
+
+.width_90 {
+  width: 90%;
+}
+
+.width_100 {
+  width: 100%;
+}
+
+.pad15 {
+  padding: 15px;
+}
+
+.time {
+  margin: 10px 0;
+}
+.time i {
+  color: #448eff;
+  font-size: 40px;
+}
+.time p {
+  color: gray;
+  margin: 5px 0;
+}
+
+.containerList {
+  border: 1px solid #dedede;
+  padding: 10px;
+}
+
+.lineHorizontal {
+  border-bottom: 1px solid #dedede;
+  margin: 10px;
+}
+
+.fa-stopwatch {
+  color: #4ba84b;
+  font-size: 25px;
+}
+.fa-stopwatch:hover {
+  color: #3b853b;
+  cursor: pointer;
+}
+
+.scroller {
+  height: 250px;
+  overflow-y: scroll;
+}
+
+.list:hover {
+  color: orange;
+}
+
+.edit {
+  margin: 0 15%;
+}
+.edit:hover {
+  cursor: pointer;
+}
+
+.fa-trash-alt, .fa-eye {
+  font-size: 25px;
+  color: #ff1e1e;
+}
+.fa-trash-alt:hover, .fa-eye:hover {
+  color: #d10000;
+}
+
+.fa-eye {
+  color: #a736d3;
+}
+.fa-eye:hover {
+  color: #79229b;
+}
+
+.border {
+  border: 1px solid #dedede;
+  width: 100%;
+}
+
+.question {
+  margin-left: 15px;
+  color: #448eff;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}

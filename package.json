@@ -1,0 +1,42 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build:prod": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
+    "watch:prod": "webpack --watch --mode=production",
+    "watch:dev": "webpack --watch --mode=development",
+    "start:server": "webpack serve --mode development",
+    "sass:dev": "sass assets/scss:public/build/css",
+    "sass:prod": "sass --no-source-map assets/scss:public/build/css",
+    "sass:watch": "sass --watch assets/scss:public/build/css",
+    "build:ts": "tsc",
+    "watch:ts": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "sass": "^1.44.0",
+    "sass-loader": "^12.3.0",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.2.5",
+    "typescript": "^4.5.4",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "ts-loader": "^9.2.6"
+  }
+}

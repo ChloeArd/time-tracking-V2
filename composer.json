@@ -1,0 +1,16 @@
+{
+    "name": "chloe/time-tracking",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Chloe\\TimeTracking\\": "source/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ChloeArd",
+            "email": "chloe.ardoise@gmail.com"
+        }
+    ],
+    "require": {}
+}
