@@ -17,33 +17,60 @@
             <a href="View/addProject.php" class="addProject align"><i class="fas fa-plus-square"></i> Projet</a>
         </div>
         <div id="projects" class="flexCenter flexRow wrap">
-            <div class="project flexColumn">
-                <h2 class="center">Titre</h2>
-                <div class="flexRow width_100 pad15">
-                    <div class="flexColumn width_20 flexCenter">
-                        <div class="time center">
-                            <i class="far fa-clock"></i>
-                            <p>Heure</p>
+            <?php
+            use Chloe\Portfolio\Model\DB;
+            require "../DB.php";
+            $bdd = DB::getInstance();
+
+            $stmt = $bdd->prepare("SELECT * from project");
+            $state = $stmt->execute();
+
+            if ($state) {
+                foreach ($stmt -> fetchAll() as $project) {
+                ?>
+                    <div class="project flexColumn">
+                        <h2 class="center"><?=$project['name']?></h2>
+                        <div class="flexRow width_100 pad15">
+                            <div class="flexColumn width_20 flexCenter">
+                                <div class="time center">
+                                    <i class="far fa-clock"></i>
+                                    <p><?=$project['time']?></p>
+                                </div>
+                                <div class="time center">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <p><?=$project['date']?></p>
+                                </div>
+                            </div>
+                            <div class="flexColumn width_80 containerList scroller">
+                                <?php
+                                $stmt = $bdd->prepare("SELECT * from todo WHERE project_fk = :project_fk");
+                                $stmt->bindValue(":project_fk", $project['id']);
+                                $state = $stmt->execute();
+
+                                if ($state) {
+                                    foreach ($stmt -> fetchAll() as $todo) {
+                                    ?>
+                                        <div class="width_100 flexRow list">
+                                            <p class="width_90"><?=$todo['name']?></p>
+                                            <i class="fas fa-stopwatch width_10 center"></i>
+                                        </div>
+                                        <div class="lineHorizontal"></div>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
                         </div>
-                        <div class="time center">
-                            <i class="far fa-calendar-alt"></i>
-                            <p>Date</p>
+                        <div class="flexRow align pad15">
+                            <a href="View/deleteProject.php?id=<?=$project['id']?>" class="edit"><i class="far fa-trash-alt"></i></a>
+                            <a href="View/viewProject.php?id=<?=$project['id']?>" class="edit"><i class="far fa-eye"></i></a>
+                            <a href="View/addToDo.php" class="edit"><i class="fas fa-plus-square"></i></a>
                         </div>
                     </div>
-                    <div class="flexColumn width_80 containerList scroller">
-                        <div class="width_100 flexRow list">
-                            <p class="width_90">Tâches à éffectuer</p>
-                            <i class="fas fa-stopwatch width_10 center"></i>
-                        </div>
-                        <div class="lineHorizontal"></div>
-                    </div>
-                </div>
-                <div class="flexRow align pad15">
-                    <a href="View/deleteProject.php" class="edit"><i class="far fa-trash-alt"></i></a>
-                    <a href="View/viewProject.php" class="edit"><i class="far fa-eye"></i></a>
-                    <a href="View/addToDo.php" class="edit"><i class="fas fa-plus-square"></i></a>
-                </div>
-            </div>
+                    <?php
+                }
+            }
+            ?>
         </div>
     </main>
 
