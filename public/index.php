@@ -64,7 +64,7 @@
                         <div class="flexRow align pad15">
                             <a href="View/deleteProject.php?id=<?=$project['id']?>" class="edit"><i class="far fa-trash-alt"></i></a>
                             <a href="View/viewProject.php?id=<?=$project['id']?>" class="edit"><i class="far fa-eye"></i></a>
-                            <a href="View/addToDo.php" class="edit"><i class="fas fa-plus-square"></i></a>
+                            <a href="View/addToDo.php?id=<?=$project['id']?>" class="edit"><i class="fas fa-plus-square"></i></a>
                         </div>
                     </div>
                     <?php
