@@ -53,7 +53,7 @@ h1 {
   font-size: 50px;
 }
 
-.fa-plus-square {
+.fa-plus-square, .fa-arrow-alt-circle-left {
   color: $orange;
   margin: 15px;
   font-size: 30px;
@@ -113,7 +113,6 @@ $unit: '%';
 .time {
   margin: 10px 0;
   i {
-    color: #448eff;
     font-size: 40px;
   }
   p {
@@ -145,6 +144,10 @@ $unit: '%';
 .scroller {
   height: 250px;
   overflow-y: scroll;
+}
+
+.heigt_600 {
+  height: 600px;
 }
 
 .edit {
@@ -181,4 +184,51 @@ $unit: '%';
 
 .wrap {
   flex-wrap: wrap;
+}
+
+.auto {
+  margin: auto;
+}
+
+input {
+  font-size: 20px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  margin: 10px 0;
+}
+
+input[type="submit"] {
+  border: none;
+  background-color: $orange;
+  color: white;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $orange_dark;
+  }
+}
+
+.red {
+  color: #ff1e1e;
+}
+
+h3 {
+  margin: 25px 0;
+}
+
+.end {
+  display: flex;
+  justify-content: end;
+}
+
+.fa-clock, .fa-calendar-alt, .fa-edit {
+  color: #448eff;
+
+  &:hover {
+    color: darken(#448eff,15);
+  }
+}
+
+.marg10 {
+  margin: 0 10px;
 }

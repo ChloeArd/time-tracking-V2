@@ -49,12 +49,12 @@ h1 {
   font-size: 50px;
 }
 
-.fa-plus-square {
+.fa-plus-square, .fa-arrow-alt-circle-left {
   color: orange;
   margin: 15px;
   font-size: 30px;
 }
-.fa-plus-square:hover {
+.fa-plus-square:hover, .fa-arrow-alt-circle-left:hover {
   color: #b37400;
 }
 
@@ -139,7 +139,6 @@ h2 {
   margin: 10px 0;
 }
 .time i {
-  color: #448eff;
   font-size: 40px;
 }
 .time p {
@@ -169,6 +168,10 @@ h2 {
 .scroller {
   height: 250px;
   overflow-y: scroll;
+}
+
+.heigt_600 {
+  height: 600px;
 }
 
 .edit {
@@ -205,4 +208,49 @@ h2 {
 
 .wrap {
   flex-wrap: wrap;
+}
+
+.auto {
+  margin: auto;
+}
+
+input {
+  font-size: 20px;
+  padding: 5px;
+  border: 1px solid #dedede;
+  margin: 10px 0;
+}
+
+input[type=submit] {
+  border: none;
+  background-color: orange;
+  color: white;
+  border-radius: 10px;
+}
+input[type=submit]:hover {
+  background-color: #b37400;
+}
+
+.red {
+  color: #ff1e1e;
+}
+
+h3 {
+  margin: 25px 0;
+}
+
+.end {
+  display: flex;
+  justify-content: end;
+}
+
+.fa-clock, .fa-calendar-alt, .fa-edit {
+  color: #448eff;
+}
+.fa-clock:hover, .fa-calendar-alt:hover, .fa-edit:hover {
+  color: #0062f7;
+}
+
+.marg10 {
+  margin: 0 10px;
 }
