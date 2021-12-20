@@ -52,7 +52,7 @@
                                     ?>
                                         <div class="width_100 flexRow list">
                                             <p class="width_90"><?=$todo['name']?></p>
-                                            <i class="fas fa-stopwatch width_10 center"></i>
+                                            <i class="fas fa-stopwatch width_10 center chrono"></i>
                                         </div>
                                         <div class="lineHorizontal"></div>
                                         <?php
