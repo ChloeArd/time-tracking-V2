@@ -171,10 +171,6 @@ h2 {
   overflow-y: scroll;
 }
 
-.list:hover {
-  color: orange;
-}
-
 .edit {
   margin: 0 15%;
 }
