@@ -48,6 +48,9 @@ h1 {
   color: orange;
   font-size: 50px;
 }
+h1 .fa-clock {
+  color: orange;
+}
 
 .fa-plus-square, .fa-arrow-alt-circle-left {
   color: orange;
