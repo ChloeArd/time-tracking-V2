@@ -17,8 +17,8 @@
                 <h2 class="center">Ajouter un projet</h2>
                 <div class="flexColumn width_100 pad15">
                     <form action="" method="post" class="flexColumn width_60 auto">
-                        <input name="name" type="text" placeholder="Nom du projet">
-                        <input type="submit" name="send" value="Ajouter">
+                        <input id="name" name="name" type="text" placeholder="Nom du projet">
+                        <input id="addProject" type="submit" name="send" value="Ajouter">
                     </form>
                 </div>
             </div>
@@ -28,6 +28,7 @@
 </html>
 
 <?php
+/**
 use Chloe\Portfolio\Model\DB;
 require "../../DB.php";
 $bdd = DB::getInstance();
@@ -49,3 +50,4 @@ if (isset($_POST['send'])) {
         }
     }
 }
+ * */

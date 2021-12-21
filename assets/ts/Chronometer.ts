@@ -11,7 +11,7 @@ export class Chronometer {
     }
 
     public stop() {
-        let time = document.getElementById("time1") as HTMLParagraphElement;
+        let time = document.getElementById("time3") as HTMLParagraphElement;
         let time1: string = time.innerHTML;
         let time2: string  = this.timer.getTimeValues().toString();
         let seconds: number = parseInt(time1.slice(6, 8)) + parseInt(time2.slice(6,8));

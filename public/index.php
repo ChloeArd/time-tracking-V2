@@ -16,7 +16,7 @@
             <p class="question">Voulez-vous ajoutez un projet ?</p>
             <a href="View/addProject.php" class="addProject align"><i class="fas fa-plus-square"></i> Projet</a>
         </div>
-        <div id="projects" class="flexCenter flexRow wrap">
+        <div id="projectsHome" class="flexCenter flexRow wrap">
             <?php
             use Chloe\Portfolio\Model\DB;
             require "../DB.php";
