@@ -237,6 +237,9 @@ input[type=submit]:hover {
 .red {
   color: #ff1e1e;
 }
+.red:hover {
+  color: #d10000;
+}
 
 h3 {
   margin: 25px 0;

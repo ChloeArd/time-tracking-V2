@@ -26,19 +26,18 @@
             $state = $stmt->execute();
 
             if ($state) {
-                foreach ($stmt -> fetchAll() as $project) {
-                ?>
+                foreach ($stmt -> fetchAll() as $project) { ?>
                     <div class="project flexColumn">
                         <h2 class="center"><?=$project['name']?></h2>
                         <div class="flexRow width_100 pad15">
                             <div class="flexColumn width_20 flexCenter">
                                 <div class="time center">
                                     <i class="far fa-clock"></i>
-                                    <p><?=$project['time']?></p>
+                                    <p id="time<?=$project['id']?>"><?=$project['time']?></p>
                                 </div>
                                 <div class="time center">
                                     <i class="far fa-calendar-alt"></i>
-                                    <p><?=$project['date']?></p>
+                                    <p id="date<?=$project['id']?>"><?=$project['date']?></p>
                                 </div>
                             </div>
                             <div class="flexColumn width_80 containerList scroller">
@@ -52,7 +51,7 @@
                                     ?>
                                         <div class="width_100 flexRow list">
                                             <p class="width_90"><?=$todo['name']?></p>
-                                            <i class="fas fa-stopwatch width_10 center chrono"></i>
+                                            <i id="chrono<?=$todo['id']?>" class="fas fa-stopwatch width_10 center chrono"></i>
                                         </div>
                                         <div class="lineHorizontal"></div>
                                         <?php

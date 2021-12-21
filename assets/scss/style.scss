@@ -214,6 +214,9 @@ input[type="submit"] {
 
 .red {
   color: #ff1e1e;
+  &:hover {
+    color: darken(#ff1e1e, 15);
+  }
 }
 
 h3 {

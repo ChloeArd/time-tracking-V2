@@ -1,11 +1,22 @@
-const Chronometer = require("express-chrono").Chronometer;
+// @ts-ignore
+import {Chronometer} from "./ts/Chronometer.ts";
 
-let chrono = new Chronometer({ format: "ms", suffix: true });
+const chronometer: Chronometer = new Chronometer();
 
-chrono.start();
+const chronoClick = document.getElementById("chrono1") as HTMLIFrameElement;
 
-setTimeout(() => {
-    chrono.stop();
-
-    console.log(chrono); // 100ms
-}, 100);
+let click : number = 0;
+if (chronoClick) {
+    chronoClick.addEventListener("click", function (e) {
+        if (click === 0) {
+            chronometer.start();
+            this.classList.add("red");
+            click ++;
+        }
+        else {
+            chronometer.stop()
+            this.classList.remove("red");
+            click = 0;
+        }
+    });
+}
