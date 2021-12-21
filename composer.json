@@ -12,5 +12,7 @@
             "email": "chloe.ardoise@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-json": "*"
+    }
 }

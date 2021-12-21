@@ -3,12 +3,12 @@ export class TimeProject {
 
     constructor(public parent : HTMLElement, public id : string) {}
 
-    public time() {
-        create("<i class=\"far fa-clock\"></i>", this.parent, "00:00:00", "3");
+    public time(time: string) {
+        create("<i class=\"far fa-clock\"></i>", this.parent, time, "3");
     }
 
-    public date () {
-        create("<i class=\"far fa-calendar-alt\"></i>", this.parent, "0000-00-00", this.id);
+    public date (date: string) {
+        create("<i class=\"far fa-calendar-alt\"></i>", this.parent, date, this.id);
     }
 
 }

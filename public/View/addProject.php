@@ -28,13 +28,23 @@
 </html>
 
 <?php
-/**
+
 use Chloe\Portfolio\Model\DB;
 require "../../DB.php";
 $bdd = DB::getInstance();
 
 if (isset($_POST['send'])) {
     if (isset($_POST['name'])) {
+        $file = fopen("../build/data/project.json", "a+");
+        $contents =  [ "project" => [
+            "title" => $_POST['name'],
+            "time" => "00:00:00",
+            "date" => date("Y-m-d")
+                ]
+        ];
+        fwrite($file, json_encode($contents));
+        fclose($file);
+        /*
         $stmt = $bdd->prepare("
         INSERT INTO project (name, time, date) VALUES (:name,  :time, :date)
     ");
@@ -48,6 +58,6 @@ if (isset($_POST['send'])) {
         else {
             echo "Erreur lors de l'ajout du projet !";
         }
+        */
     }
 }
- * */
