@@ -4,7 +4,7 @@ export class TimeProject {
     constructor(public parent : HTMLElement, public id : string) {}
 
     public time(time: string) {
-        create("<i class=\"far fa-clock\"></i>", this.parent, time, "3");
+        create("<i class=\"far fa-clock\"></i>", this.parent, time, this.id);
     }
 
     public date (date: string) {

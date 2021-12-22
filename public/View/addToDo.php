@@ -35,7 +35,24 @@ $bdd = DB::getInstance();
 
 if (isset($_POST['send'])) {
     if (isset($_POST['name'], $_POST['project_fk'])) {
-        $stmt = $bdd->prepare("
+
+        $contents =  [ "subject" => [
+            "title" => $_POST['name'],
+            "time" => "00:00:00",
+            "date" => date("Y-m-d"),
+            "project_fk" => $_POST['project_fk']
+            ]
+        ];
+
+        // add a content of table in json file
+        $inp = file_get_contents("../data/todo.json");
+        $tempArray = json_decode($inp);
+        array_push($tempArray, $contents);
+        $file = fopen("../data/todo.json", "w+");
+        fwrite($file, json_encode($tempArray));
+        fclose($file);
+
+        /*$stmt = $bdd->prepare("
         INSERT INTO todo (name, time, date, project_fk) VALUES (:name, :time, :date, :project_fk)
     ");
         $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
@@ -48,6 +65,6 @@ if (isset($_POST['send'])) {
         }
         else {
             echo "Erreur lors de l'ajout d'une tâche !";
-        }
+        }*/
     }
 }

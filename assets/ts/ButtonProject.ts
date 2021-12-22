@@ -4,7 +4,7 @@ export class ButtonProject {
     constructor(public parent : HTMLElement, public id : string) {}
 
     public view(){
-        createElementA("<i class=\"far fa-eye\"></i>", "View/viewProject.php?id=" + "this.id", this.parent)
+        createElementA("<i class=\"far fa-eye\"></i>", "View/viewProject.php?id=" + this.id, this.parent)
     }
 
     public delete() {

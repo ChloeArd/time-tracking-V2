@@ -42,7 +42,7 @@ export class ButtonList {
                     click ++;
                 }
                 else {
-                    chronometer.stop()
+                    chronometer.stop("time")
                     this.classList.remove("red");
                     click = 0;
                 }

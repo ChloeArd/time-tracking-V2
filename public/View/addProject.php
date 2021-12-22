@@ -35,15 +35,21 @@ $bdd = DB::getInstance();
 
 if (isset($_POST['send'])) {
     if (isset($_POST['name'])) {
-        $file = fopen("../build/data/project.json", "a+");
         $contents =  [ "project" => [
             "title" => $_POST['name'],
             "time" => "00:00:00",
             "date" => date("Y-m-d")
                 ]
         ];
-        fwrite($file, json_encode($contents));
+
+        // add a content of table in json file
+        $inp = file_get_contents("../data/project.json");
+        $tempArray = json_decode($inp);
+        array_push($tempArray, $contents);
+        $file = fopen("../data/project.json", "w+");
+        fwrite($file, json_encode($tempArray));
         fclose($file);
+
         /*
         $stmt = $bdd->prepare("
         INSERT INTO project (name, time, date) VALUES (:name,  :time, :date)

@@ -10,8 +10,8 @@ export class Chronometer {
         });
     }
 
-    public stop() {
-        let time = document.getElementById("time3") as HTMLParagraphElement;
+    public stop(id: string) {
+        let time = document.getElementById(id) as HTMLParagraphElement;
         let time1: string = time.innerHTML;
         let time2: string  = this.timer.getTimeValues().toString();
         let seconds: number = parseInt(time1.slice(6, 8)) + parseInt(time2.slice(6,8));

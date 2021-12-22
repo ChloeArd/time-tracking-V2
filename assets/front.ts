@@ -10,16 +10,3 @@ if (document.getElementById("projectsHome") as HTMLDivElement) {
 if (document.getElementById("addProject") as HTMLInputElement) {
     projects.add();
 }
-
-let xhr = new XMLHttpRequest();
-xhr.onload = function () {
-    let response = xhr.responseText;
-    console.log(response);
-    let json = JSON.parse(response);
-    console.log(json);
-    console.log(json.project.title);
-    console.log(response);
-}
-
-xhr.open('GET', './data/project.json');
-xhr.send();

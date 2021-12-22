@@ -18,7 +18,7 @@
         </div>
         <div id="projectsHome" class="flexCenter flexRow wrap">
             <?php
-            use Chloe\Portfolio\Model\DB;
+            /*use Chloe\Portfolio\Model\DB;
             require "../DB.php";
             $bdd = DB::getInstance();
 
@@ -68,7 +68,7 @@
                     </div>
                     <?php
                 }
-            }
+            }*/
             ?>
         </div>
     </main>

@@ -5,14 +5,14 @@ export class List {
 
     constructor(public parent : HTMLElement, public id : string) {}
 
-    public view() {
+    public view(name: string) {
         let container = document.createElement("div") as HTMLDivElement;
         container.className = "width_100 flexRow list";
         this.parent.append(container);
 
         let listName = document.createElement("p") as HTMLParagraphElement;
         listName.className = "width_90";
-        listName.innerHTML = "Nom de la tâche";
+        listName.innerHTML = name;
         container.append(listName);
 
         const buttonList: ButtonList = new ButtonList(container, "");
