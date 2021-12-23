@@ -52,7 +52,7 @@ if (isset($_POST['send'])) {
         fwrite($file, json_encode($tempArray));
         fclose($file);
 
-        /*$stmt = $bdd->prepare("
+        $stmt = $bdd->prepare("
         INSERT INTO todo (name, time, date, project_fk) VALUES (:name, :time, :date, :project_fk)
     ");
         $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
@@ -65,6 +65,6 @@ if (isset($_POST['send'])) {
         }
         else {
             echo "Erreur lors de l'ajout d'une tâche !";
-        }*/
+        }
     }
 }

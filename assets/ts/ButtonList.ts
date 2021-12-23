@@ -3,17 +3,18 @@ import {Chronometer} from "./Chronometer.ts";
 
 export class ButtonList {
 
-    constructor(public parent : HTMLElement, public id : string) {}
+    constructor(public parent : HTMLElement, public id : string, public idProject: string) {}
 
     public add(){
-        createElementA("edit", "<i class=\"fas fa-plus-square\"></i>", "View/addToDo.php?id=" + this.id, this.parent)
+        createElementA("edit", "<i class=\"fas fa-plus-square\"></i>", "View/addToDo.php?id=" + this.id, this.parent);
     }
 
     public edit() {
-
+        createElementA("marg10", "<i class=\"fas fa-edit\"></i>", "./editToDo.php?id=" + this.id + "&id2=" + this.idProject, this.parent);
     }
 
     public delete() {
+        createElementA("marg10", "<i class=\"fas fa-trash-alt\"></i>", "./deleteToDo.php?id=" + this.id + "&id2=" + this.idProject, this.parent);
     }
 
     public date() {
@@ -33,12 +34,13 @@ export class ButtonList {
         const chronometer: Chronometer = new Chronometer();
         const chronoClick = document.getElementById(element.id) as HTMLIFrameElement;
 
-        let click : number = 0;
+        let click: number = 0;
         if (chronoClick) {
             chronoClick.addEventListener("click", function (e) {
                 if (click === 0) {
                     chronometer.start();
                     this.classList.add("red");
+
                     click ++;
                 }
                 else {
@@ -51,7 +53,7 @@ export class ButtonList {
     }
 }
 
-function createElementA (classN: string, icon : string, link: string, parent: HTMLElement) {
+export function createElementA (classN: string, icon : string, link: string, parent: HTMLElement) {
     let element =  document.createElement("a") as HTMLAnchorElement;
     element.className = classN;
     element.innerHTML = icon;
