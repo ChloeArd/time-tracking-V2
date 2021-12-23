@@ -24,9 +24,9 @@ export class ButtonList {
 
     }
 
-    public chrono(idList: string, parent: HTMLElement) {
+    public chrono(idList: string, parent: HTMLElement, idProject: string) {
         let element = document.createElement("i") as HTMLIFrameElement;
-        element.id = "chrono" + idList;
+        element.id = idList;
         element.className = "fas fa-stopwatch width_10 center chrono";
         parent.append(element);
 
@@ -42,7 +42,7 @@ export class ButtonList {
                     click ++;
                 }
                 else {
-                    chronometer.stop("time")
+                    chronometer.stop(idProject)
                     this.classList.remove("red");
                     click = 0;
                 }

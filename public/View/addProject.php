@@ -50,7 +50,6 @@ if (isset($_POST['send'])) {
         fwrite($file, json_encode($tempArray));
         fclose($file);
 
-        /*
         $stmt = $bdd->prepare("
         INSERT INTO project (name, time, date) VALUES (:name,  :time, :date)
     ");
@@ -58,12 +57,12 @@ if (isset($_POST['send'])) {
         $stmt->bindValue(":time", "00:00:00");
         $stmt->bindValue(":date", date("Y-m-d"));
         $stmt->execute();
+
         if ($stmt->rowCount() > 0) {
             header("Location: ../index.php?success=0");
         }
         else {
             echo "Erreur lors de l'ajout du projet !";
         }
-        */
     }
 }

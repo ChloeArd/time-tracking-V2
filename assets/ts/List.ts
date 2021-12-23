@@ -5,7 +5,7 @@ export class List {
 
     constructor(public parent : HTMLElement, public id : string) {}
 
-    public view(name: string) {
+    public view(name: string, id: string) {
         let container = document.createElement("div") as HTMLDivElement;
         container.className = "width_100 flexRow list";
         this.parent.append(container);
@@ -16,7 +16,7 @@ export class List {
         container.append(listName);
 
         const buttonList: ButtonList = new ButtonList(container, "");
-        buttonList.chrono("chrono" + this.id, container);
+        buttonList.chrono("chrono" + this.id, container, "time" + id);
 
         let line = document.createElement("div") as HTMLDivElement;
         line.className = "lineHorizontal";

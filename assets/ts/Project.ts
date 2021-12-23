@@ -10,24 +10,23 @@ import {List} from "./List.ts";
 export class Project {
 
     public view() {
-        let xhr = new XMLHttpRequest();
+        let xhr: XMLHttpRequest = new XMLHttpRequest();
         xhr.onload = function () {
-            let response = xhr.responseText;
-            let json = JSON.parse(response);
+            let response: string = xhr.responseText;
+            let json: any = JSON.parse(response);
             console.log(json);
 
             for (let i = 0; i < json.length; i++) {
 
                 let projects = document.getElementById("projectsHome") as HTMLDivElement;
-
                 let divContainer: HTMLDivElement = document.createElement("div");
                 divContainer.className = "project flexColumn";
-                divContainer.id = "project" + i;
+                divContainer.id = "project" + json[i].id;
                 projects.append(divContainer);
 
                 let title: HTMLHeadingElement = document.createElement("h2");
                 title.className = "center";
-                title.innerHTML = json[i].project.title;
+                title.innerHTML = json[i].name;
                 divContainer.append(title);
 
                 let div2: HTMLDivElement = document.createElement("div");
@@ -46,39 +45,39 @@ export class Project {
                 div5.className = "flexColumn width_80 containerList scroller";
                 div2.append(div5);
 
-                let xhr2 = new XMLHttpRequest();
+                let xhr2: XMLHttpRequest = new XMLHttpRequest();
                 xhr2.onload = function () {
-                    let response = xhr2.responseText;
-                    let json = JSON.parse(response);
-                    console.log(json);
+                    let response: string = xhr2.responseText;
+                    let json2: any = JSON.parse(response);
 
                     // dsiplay a list of a project
-                    for (let x = 0; x < json.length; x++) {
-                        if (json[x].subject.project_fk == i) {
-
-                            const list: List = new List(div5, "list" + x);
-                            list.view(json[x].subject.title);
+                    for (let x = 0; x < json2.length; x++) {
+                        if (json2[x].project_fk == json[i].id) {
+                            const list: List = new List(div5, x);
+                            list.view(json2[x].name, json[i].id);
+                        }
+                        else {
                         }
                     }
                 }
 
-                xhr2.open('GET', './../data/todo.json');
+                xhr2.open('GET', './../api/todo');
                 xhr2.send();
 
-                const timeProject: TimeProject = new TimeProject(div4, divContainer.id);
-                timeProject.time(json[i].project.time);
-                timeProject.date(json[i].project.date);
+                const timeProject: TimeProject = new TimeProject(div4, json[i].id);
+                timeProject.time(json[i].time);
+                timeProject.date(json[i].date);
 
-                const button: ButtonProject = new ButtonProject(div3, i);
+                const button: ButtonProject = new ButtonProject(div3, json[i].id);
                 button.delete();
                 button.view();
 
-                const buttonList: ButtonList = new ButtonList(div3, i);
+                const buttonList: ButtonList = new ButtonList(div3, json[i].id);
                 buttonList.add();
             }
         }
 
-        xhr.open('GET', './../data/project.json');
+        xhr.open('GET', './../api/project');
         xhr.send();
     }
 

@@ -28,6 +28,35 @@ export class Chronometer {
             minutes = minutes - 59;
             conditionTime(hours, minutes, seconds, time, time.innerHTML = hours + 1 + ":" + minutes + ":" + seconds);
         }
+
+        let y = time.id.replace("time", "");
+
+        let xhr: XMLHttpRequest = new XMLHttpRequest();
+        xhr.onload = function () {
+            let response: string = xhr.responseText;
+            let json: any = JSON.parse(response);
+
+            json[y].project.time += time1;
+
+            let xhr2: XMLHttpRequest = new XMLHttpRequest();
+            xhr2.onload = function () {
+                let response: string = xhr2.responseText;
+                let json: any = JSON.parse(response);
+                console.log(json);
+
+                json[y].subject.time = time1;
+            }
+
+            xhr2.open('GET', './../data/todo.json');
+            xhr2.send();
+
+        }
+
+        xhr.open('GET', './../data/project.json');
+        xhr.send();
+
+
+
         this.timer.stop();
     }
 }
