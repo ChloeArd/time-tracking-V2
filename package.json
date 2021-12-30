@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "easytimer.js": "^4.5.1",
+    "jquery": "^3.6.0",
     "ts-loader": "^9.2.6"
   }
 }

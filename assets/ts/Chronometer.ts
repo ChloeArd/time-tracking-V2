@@ -1,4 +1,6 @@
 import {Timer} from "easytimer.js";
+// @ts-ignore
+import {Project} from "./Project.ts";
 
 export class Chronometer {
 
@@ -10,7 +12,7 @@ export class Chronometer {
         });
     }
 
-    public stop(id: string) {
+    public stop(id: string, idTodo: string) {
         let time = document.getElementById(id) as HTMLParagraphElement;
         let time1: string = time.innerHTML;
         let time2: string  = this.timer.getTimeValues().toString();
@@ -36,12 +38,19 @@ export class Chronometer {
             let response: string = xhr.responseText;
             let json: any = JSON.parse(response);
 
-            json[y].project.time += time1;
+            for (let i = 0; i < json.length; i++) {
+                if (json[i].id == y) {
+                    json[i].time += time1;
+                }
+            }
         }
 
-        xhr.open('GET', './../data/project.json');
+        xhr.open('GET', './../api/project');
         xhr.send();
         this.timer.stop();
+
+        let project = new Project();
+        project.edit(id, time.innerHTML, idTodo);
     }
 }
 

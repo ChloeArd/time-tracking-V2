@@ -3,7 +3,7 @@ import {ButtonList, createElementA} from "./ButtonList.ts";
 
 export class List {
 
-    constructor(public parent : HTMLElement, public id : string) {}
+    constructor(public parent : HTMLElement, public id : string, public timeProject: string, public timeTodo: string) {}
 
     public view(name: string, id: string) {
         let container = document.createElement("div") as HTMLDivElement;
@@ -16,7 +16,7 @@ export class List {
         container.append(listName);
 
         const buttonList: ButtonList = new ButtonList(container, "");
-        buttonList.chrono("chrono" + this.id, container, "time" + id);
+        buttonList.chrono("chrono" + this.id, container, "time" + id, this.timeProject, this.timeTodo, id, this.id);
 
         let line = document.createElement("div") as HTMLDivElement;
         line.className = "lineHorizontal";
@@ -50,17 +50,5 @@ export class List {
         let line = document.createElement("div") as HTMLDivElement;
         line.className = "lineHorizontal";
         this.parent.append(line);
-    }
-
-    public add() {
-
-    }
-
-    public update() {
-
-    }
-
-    public delete() {
-
     }
 }

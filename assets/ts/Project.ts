@@ -6,6 +6,7 @@ import {TimeProject} from "./TimeProject.ts";
 import {ButtonList} from "./ButtonList.ts";
 // @ts-ignore
 import {List} from "./List.ts";
+import * as $ from "jquery";
 
 export class Project {
 
@@ -51,7 +52,7 @@ export class Project {
                     // dsiplay a list of a project
                     for (let x = 0; x < json2.length; x++) {
                         if (json2[x].project_fk == json[i].id) {
-                            const list: List = new List(div5, x);
+                            const list: List = new List(div5, json2[x].id, json[i].time, json2[x].time);
                             list.view(json2[x].name, json[i].id);
                         }
                         else {
@@ -155,25 +156,35 @@ export class Project {
             let name = document.getElementById("name") as HTMLInputElement;
             let nameValue: string = name.value;
             let date = new Date();
-
-            /*let xhr = new XMLHttpRequest();
-            xhr.onload = function () {
-                let response = xhr.responseText;
-                let json = JSON.parse(response);
-                let item = {
-                    title: nameValue,
-                    time: "00:00:00",
-                    date: date.toLocaleDateString()
-                }
-                JSON.stringify(json.push(item));
-            }
-
-            xhr.open('POST', './../data/project.json');
-            xhr.send();*/
         });
     }
 
-    public delete() {
+    public edit (idProject : string, time : string, id: string) {
+        let idTodo = id.replace("time", "");
+        alert(idTodo);
+        let submitClick = document.getElementById("submit" + idTodo) as HTMLInputElement;
+        submitClick.addEventListener("click", function () {
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+            xhr.onload = function () {
+                let response: string = xhr.responseText;
+                alert(response);
+                let json: any = JSON.parse(response);
+                alert(json);
+            }
 
+            let idP = idProject.replace("time", "");
+
+            let data = {
+                'id': idP,
+                'date': new Date().toLocaleDateString(),
+                'time': time
+            }
+
+            xhr.open('PUT', './../api/project');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+            alert(data.id + " + " + data.date + " + " + time);
+        });
     }
+
 }

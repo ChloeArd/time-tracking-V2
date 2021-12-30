@@ -25,11 +25,24 @@ export class ButtonList {
 
     }
 
-    public chrono(idList: string, parent: HTMLElement, idProject: string) {
+    public chrono(idList: string, parent: HTMLElement, idProject: string, valueTimeProject: string, valueTimeTodo: string, idProject2: string, idList2: string) {
         let element = document.createElement("i") as HTMLIFrameElement;
         element.id = idList;
         element.className = "fas fa-stopwatch width_10 center chrono";
         parent.append(element);
+
+        let form = document.createElement("form") as HTMLFormElement;
+        form.method = "POST";
+        form.action = "";
+        form.className = "formChrono";
+        parent.append(form);
+
+        // valeur du temps du projet / de la liste, l'id du projet / de la liste
+        createInput(form, valueTimeProject, "timeProject", "hidden", "InputTimeProject");
+        createInput(form, valueTimeTodo, "timeTodo", "hidden", "inputTimeTodo");
+        createInput(form, idProject2, "idProject", "hidden", "inputIdProject");
+        createInput(form, idList2, "idTodo", "hidden", "InputIdTodo");
+        createInput(form, "<i class='fas fa-stopwatch width_10 center chrono red'></i>", "send", "submit", "submit" + idList2);
 
         const chronometer: Chronometer = new Chronometer();
         const chronoClick = document.getElementById(element.id) as HTMLIFrameElement;
@@ -44,7 +57,7 @@ export class ButtonList {
                     click ++;
                 }
                 else {
-                    chronometer.stop(idProject)
+                    chronometer.stop(idProject, idList2)
                     this.classList.remove("red");
                     click = 0;
                 }
@@ -59,4 +72,13 @@ export function createElementA (classN: string, icon : string, link: string, par
     element.innerHTML = icon;
     element.href = link;
     parent.append(element);
+}
+
+function createInput (parent: HTMLFormElement, value: string, name: string, type: string, id: string) {
+    let input1 = document.createElement("input") as HTMLInputElement;
+    input1.type = type;
+    input1.value = value
+    input1.name = name;
+    input1.id = id;
+    parent.append(input1);
 }
