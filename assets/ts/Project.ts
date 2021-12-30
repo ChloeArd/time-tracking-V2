@@ -159,32 +159,31 @@ export class Project {
         });
     }
 
-    public edit (idProject : string, time : string, id: string) {
+    public edit (idProject : string, time : string, id: string, timeTodo: string) {
         let idTodo = id.replace("time", "");
-        alert(idTodo);
         let submitClick = document.getElementById("submit" + idTodo) as HTMLInputElement;
-        submitClick.addEventListener("click", function () {
-            let xhr: XMLHttpRequest = new XMLHttpRequest();
-            xhr.onload = function () {
-                let response: string = xhr.responseText;
-                alert(response);
-                let json: any = JSON.parse(response);
-                alert(json);
-            }
+            submitClick?.addEventListener("click", function () {
+                let xhr: XMLHttpRequest = new XMLHttpRequest();
+                xhr.onload = function () {
+                    let response: string = xhr.responseText;
+                    let json: any = JSON.parse(response);
+                }
 
-            let idP = idProject.replace("time", "");
+                let idP = idProject.replace("time", "");
 
-            let data = {
-                'id': idP,
-                'date': new Date().toLocaleDateString(),
-                'time': time
-            }
+                let data = {
+                    'id': idP,
+                    'date': new Date().toLocaleDateString(),
+                    'time': time,
+                    'idTodo': idTodo,
+                    'dateTodo': new Date().toLocaleDateString(),
+                    'timeTodo': timeTodo
+                }
 
-            xhr.open('PUT', './../api/project');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(data));
-            alert(data.id + " + " + data.date + " + " + time);
-        });
-    }
+                xhr.open('PUT', './../api/project');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(data));
+            });
+        }
 
 }

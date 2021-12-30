@@ -79,6 +79,12 @@ a {
   width: 100%;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  margin: 0 20px;
+}
+
 .project {
   border: 1px solid #dedede;
   border-radius: 10px;

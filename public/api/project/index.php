@@ -41,11 +41,19 @@ switch ($requestType) {
         ];
         $data = json_decode(file_get_contents('php://input'));
 
-        if (isset($data->id, $data->date, $data->time)) {
+        if (isset($data->id, $data->date, $data->time, $data->idTodo, $data->dateTodo, $data->timeTodo)) {
             $stmt = $bdd->prepare("UPDATE project SET date = :date, time = :time WHERE id = :id");
             $stmt->bindValue(":id", $data->id);
             $stmt->bindValue(":date", $data->date);
             $stmt->bindValue(":time", $data->time);
+            $stmt->execute();
+
+            $stmt = $bdd->prepare("UPDATE todo SET date = :date, time = :time WHERE id = :id AND project_fk = :project_fk");
+            $stmt->bindValue(":project_fk", $data->id);
+            $stmt->bindValue(":id", $data->idTodo);
+            $stmt->bindValue(":date", $data->dateTodo);
+            $stmt->bindValue(":time", $data->timeTodo);
+
             if (!$stmt->execute()) {
                 $response = [
                     'error' => 'error1',

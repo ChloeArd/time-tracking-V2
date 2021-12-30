@@ -34,15 +34,21 @@ export class ButtonList {
         let form = document.createElement("form") as HTMLFormElement;
         form.method = "POST";
         form.action = "";
-        form.className = "formChrono";
+        form.id = "formChrono";
         parent.append(form);
 
         // valeur du temps du projet / de la liste, l'id du projet / de la liste
-        createInput(form, valueTimeProject, "timeProject", "hidden", "InputTimeProject");
-        createInput(form, valueTimeTodo, "timeTodo", "hidden", "inputTimeTodo");
-        createInput(form, idProject2, "idProject", "hidden", "inputIdProject");
-        createInput(form, idList2, "idTodo", "hidden", "InputIdTodo");
-        createInput(form, "<i class='fas fa-stopwatch width_10 center chrono red'></i>", "send", "submit", "submit" + idList2);
+        createInput(form, valueTimeProject, "timeProject", "hidden", "InputTimeProject" + idList2);
+        createInput(form, valueTimeTodo, "timeTodo", "hidden", "inputTimeTodo" + idList2);
+        createInput(form, idProject2, "idProject", "hidden", "inputIdProject" + idList2);
+        createInput(form, idList2, "idTodo", "hidden", "InputIdTodo" + idList2);
+
+        let button = document.createElement("button") as HTMLButtonElement;
+        button.type = "submit";
+        button.name = "send";
+        button.innerHTML = "Ok";
+        button.id = "submit" + idList2;
+        form.append(button);
 
         const chronometer: Chronometer = new Chronometer();
         const chronoClick = document.getElementById(element.id) as HTMLIFrameElement;
