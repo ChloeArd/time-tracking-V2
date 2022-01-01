@@ -70,15 +70,79 @@ export class List {
             buttonDate.addEventListener("click", function () {
                 let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
                 alert(valueInput.value);
-                clickDate.innerHTML = "<i class='far fa-calendar-alt'> " + date;
+                let xhr: XMLHttpRequest = new XMLHttpRequest();
+                xhr.onload = function () {
+                    let response: string = xhr.responseText;
+                    let json: any = JSON.parse(response);
+                }
+
+                let data = {
+                    'id': id,
+                    'date': valueInput.value,
+                    'idProject': idProject,
+                }
+
+                xhr.open('PUT', './../api/todo');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(data));
             });
         });
 
 
         let div2 = document.createElement("div") as HTMLDivElement;
         div2.className = "width_10 center";
-        div2.innerHTML = "<i class='fas fa-stopwatch'> " + time;
+        div2.id = "time" + id;
         container.append(div2);
+
+        let para2 = document.createElement("p") as HTMLParagraphElement;
+        para2.id = "TimePara" + id;
+        para2.innerHTML = "<i class='fas fa-stopwatch'> " + time;
+        div2.append(para2);
+
+        let idTime = para2.id;
+        let clickTime = document.getElementById(idTime) as HTMLDivElement;
+
+        clickTime.addEventListener("click", function () {
+            clickTime.innerHTML = "";
+
+            let form = document.createElement("form") as HTMLFormElement;
+            form.method = "POST";
+            form.action = "";
+            form.id = "formTime2";
+            div2.append(form);
+
+            createInput(form, time, "timeTodo", "text", "inputTimeTodo" + id);
+
+            let button = document.createElement("button") as HTMLButtonElement;
+            button.type = "submit";
+            button.name = "send";
+            button.innerHTML = "Ok";
+            button.id = "sendTime" + id;
+            form.append(button);
+
+
+            let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
+
+            buttonDate.addEventListener("click", function () {
+                let valueInput = document.getElementById("inputTimeTodo" + id) as HTMLInputElement;
+                alert(valueInput.value);
+                let xhr: XMLHttpRequest = new XMLHttpRequest();
+                xhr.onload = function () {
+                    let response: string = xhr.responseText;
+                    let json: any = JSON.parse(response);
+                }
+
+                let data = {
+                    'id': id,
+                    'time': valueInput.value,
+                    'idProject': idProject,
+                }
+
+                xhr.open('PUT', './../api/todo');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(data));
+            });
+        });
 
         const buttonList: ButtonList = new ButtonList(container, id, idProject);
         buttonList.edit();
