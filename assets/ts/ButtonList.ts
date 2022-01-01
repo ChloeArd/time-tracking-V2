@@ -37,11 +37,10 @@ export class ButtonList {
         form.id = "formChrono";
         parent.append(form);
 
-        // valeur du temps du projet / de la liste, l'id du projet / de la liste
-        createInput(form, valueTimeProject, "timeProject", "hidden", "InputTimeProject" + idList2);
+        createInput(form, valueTimeProject, "timeProject", "hidden", "inputTimeProject" + idList2);
         createInput(form, valueTimeTodo, "timeTodo", "hidden", "inputTimeTodo" + idList2);
         createInput(form, idProject2, "idProject", "hidden", "inputIdProject" + idList2);
-        createInput(form, idList2, "idTodo", "hidden", "InputIdTodo" + idList2);
+        createInput(form, idList2, "idTodo", "hidden", "inputIdTodo" + idList2);
 
         let button = document.createElement("button") as HTMLButtonElement;
         button.type = "submit";
@@ -80,7 +79,7 @@ export function createElementA (classN: string, icon : string, link: string, par
     parent.append(element);
 }
 
-function createInput (parent: HTMLFormElement, value: string, name: string, type: string, id: string) {
+export function createInput (parent: HTMLFormElement, value: string, name: string, type: string, id: string) {
     let input1 = document.createElement("input") as HTMLInputElement;
     input1.type = type;
     input1.value = value

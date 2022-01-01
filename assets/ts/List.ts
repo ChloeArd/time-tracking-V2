@@ -1,5 +1,5 @@
 // @ts-ignore
-import {ButtonList, createElementA} from "./ButtonList.ts";
+import {ButtonList, createElementA, createInput} from "./ButtonList.ts";
 
 export class List {
 
@@ -35,8 +35,45 @@ export class List {
 
         let div = document.createElement("div") as HTMLDivElement;
         div.className = "width_10 center";
-        div.innerHTML = "<i class='far fa-calendar-alt'> " + date;
+        div.id = "date" + id;
         container.append(div);
+
+        let para = document.createElement("p") as HTMLParagraphElement;
+        para.id = "datePara" + id;
+        para.innerHTML = "<i class='far fa-calendar-alt'> " + date;
+        div.append(para);
+
+        let idDate = para.id;
+        let clickDate = document.getElementById(idDate) as HTMLDivElement;
+
+        clickDate.addEventListener("click", function () {
+            clickDate.innerHTML = "";
+
+            let form = document.createElement("form") as HTMLFormElement;
+            form.method = "POST";
+            form.action = "";
+            form.id = "formDate";
+            div.append(form);
+
+            createInput(form, date, "dateTodo", "text", "inputDateTodo" + id);
+
+            let button = document.createElement("button") as HTMLButtonElement;
+            button.type = "submit";
+            button.name = "send";
+            button.innerHTML = "Ok";
+            button.id = "sendDate" + id;
+            form.append(button);
+
+
+            let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
+
+            buttonDate.addEventListener("click", function () {
+                let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
+                alert(valueInput.value);
+                clickDate.innerHTML = "<i class='far fa-calendar-alt'> " + date;
+            });
+        });
+
 
         let div2 = document.createElement("div") as HTMLDivElement;
         div2.className = "width_10 center";
