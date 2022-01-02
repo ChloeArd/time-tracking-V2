@@ -1,5 +1,5 @@
 // @ts-ignore
-import {createElementA} from "./ButtonList";
+import {createElementA} from "./ButtonList.ts";
 
 export class ButtonProject {
 

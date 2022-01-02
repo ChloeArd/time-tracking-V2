@@ -36,7 +36,7 @@ export class List {
         container.append(listName);
 
         let div = document.createElement("div") as HTMLDivElement;
-        div.className = "width_10 center";
+        div.className = "width_10 center widthList";
         div.id = "date" + id;
         container.append(div);
 
@@ -70,25 +70,6 @@ export class List {
             let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
 
             buttonDate.addEventListener("click", function () {
-                let xhr2: XMLHttpRequest = new XMLHttpRequest();
-                xhr2.onload = function () {
-                    let response: string = xhr2.responseText;
-                    let json2: any = JSON.parse(response);
-
-                    // dsiplay a list of a project
-                    for (let x = 0; x < json2.length; x++) {
-                        if (json2[x].project_fk == idProject) {
-                            if (x < 1) {
-                                let a = json2[x].date;
-                            }
-                        } else {
-                        }
-                    }
-                }
-
-                xhr2.open('GET', './../api/todo');
-                xhr2.send();
-
                 let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
                 let xhr: XMLHttpRequest = new XMLHttpRequest();
 
@@ -105,7 +86,7 @@ export class List {
         });
 
         let div2 = document.createElement("div") as HTMLDivElement;
-        div2.className = "width_10 center";
+        div2.className = "width_10 center widthList";
         div2.id = "time" + id;
         container.append(div2);
 
@@ -128,6 +109,7 @@ export class List {
             div2.append(form);
 
             createInput(form, time, "timeTodo", "text", "inputTimeTodo" + id);
+            createInput(form, time, "timeTodo2", "hidden", "inputTimeTodoActual" + id);
 
             let button = document.createElement("button") as HTMLButtonElement;
             button.type = "submit";
@@ -136,10 +118,43 @@ export class List {
             button.id = "sendTime" + id;
             form.append(button);
 
-            let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
+            let buttonTime = document.getElementById(button.id) as HTMLButtonElement;
 
-            buttonDate.addEventListener("click", function () {
+            buttonTime.addEventListener("click", function () {
                 let valueInput = document.getElementById("inputTimeTodo" + id) as HTMLInputElement;
+
+                let xhr2: XMLHttpRequest = new XMLHttpRequest();
+                xhr2.onload = function () {
+                    let response: string = xhr2.responseText;
+                    let json2: any = JSON.parse(response);
+
+                    // dsiplay a list of a project
+                    for (let x = 0; x < json2.length; x++) {
+                        if (json2[x].id == id) {
+                            let seconds: number = parseInt(json2[x].time.slice(6, 8));
+                            alert( seconds);
+
+                            let minutes: number = parseInt(json2[x].time.slice(3, 5));
+                            alert(minutes);
+
+                            let hours: number = parseInt(json2[x].time.slice(0, 3));
+                            alert(hours);
+
+                            if (x != 0) {
+                                alert("secondes");
+                                alert(seconds += seconds);
+                                alert("minutes");
+                                alert(minutes += minutes);
+                                alert("hours");
+                                alert(hours += hours);
+                            }
+                        }
+                    }
+                }
+
+                xhr2.open('GET', './../api/todo');
+                xhr2.send();
+
                 let xhr: XMLHttpRequest = new XMLHttpRequest();
 
                 let data = {

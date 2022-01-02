@@ -10,6 +10,11 @@ export class ButtonList {
         createElementA("edit", "<i class=\"fas fa-plus-square\"></i>", "View/addToDo.php?id=" + this.id, this.parent);
     }
 
+    // A link for add a todo
+    public add2(){
+        createElementA("edit", "<i class=\"fas fa-plus-square\"></i>", "addToDo.php?id=" + this.id, this.parent);
+    }
+
     // Link for edit a todo
     public edit() {
         createElementA("marg10", "<i class=\"fas fa-edit\"></i>", "./editToDo.php?id=" + this.id + "&id2=" + this.idProject, this.parent);

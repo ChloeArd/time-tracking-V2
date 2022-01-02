@@ -137,17 +137,20 @@ export class Project {
 
                     let div4 = document.createElement("div") as HTMLDivElement;
                     div4.className = "width_50";
-                    div4.innerHTML = "<i class='far fa-clock'></i> Total heures passées : " + json[i].time;
+                    div4.innerHTML = "<i class='far fa-clock'></i> Total heures passées : ";
                     div3.append(div4);
 
+                    let span = document.createElement("span") as HTMLSpanElement;
+                    span.id = "timeProject" + json[i].id;
+                    span.innerHTML = json[i].time;
+                    div4.append(span);
 
                     const buttonList: ButtonList = new ButtonList(div3, json[i].id);
-                    buttonList.add();
+                    buttonList.add2();
                 }
             }
 
         }
-
         xhr.open('GET', './../api/project');
         xhr.send();
     }
