@@ -10,6 +10,7 @@ import * as $ from "jquery";
 
 export class Project {
 
+    // View all projects
     public view() {
         let xhr: XMLHttpRequest = new XMLHttpRequest();
         xhr.onload = function () {
@@ -80,6 +81,7 @@ export class Project {
         xhr.send();
     }
 
+    // View one project
     public viewOnly()  {
         let url: string = document.location.search;
         let urlId: number = parseInt(url.substr(-1, 1));
@@ -150,25 +152,12 @@ export class Project {
         xhr.send();
     }
 
-    public add() {
-        const send = document.getElementById("addProject") as HTMLInputElement;
-        send.addEventListener("click", function () {
-            let name = document.getElementById("name") as HTMLInputElement;
-            let nameValue: string = name.value;
-            let date = new Date();
-        });
-    }
-
+    // edit a project
     public edit (idProject : string, time : string, id: string, timeTodo: string) {
         let idTodo = id.replace("time", "");
         let submitClick = document.getElementById("submit" + idTodo) as HTMLInputElement;
             submitClick?.addEventListener("click", function () {
                 let xhr: XMLHttpRequest = new XMLHttpRequest();
-                xhr.onload = function () {
-                    let response: string = xhr.responseText;
-                    let json: any = JSON.parse(response);
-                }
-
                 let idP = idProject.replace("time", "");
 
                 let data = {
@@ -185,5 +174,4 @@ export class Project {
                 xhr.send(JSON.stringify(data));
             });
         }
-
 }

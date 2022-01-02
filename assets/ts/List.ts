@@ -5,6 +5,7 @@ export class List {
 
     constructor(public parent : HTMLElement, public id : string, public timeProject: string, public timeTodo: string) {}
 
+    // View all todo
     public view(name: string, id: string) {
         let container = document.createElement("div") as HTMLDivElement;
         container.className = "width_100 flexRow list";
@@ -23,6 +24,7 @@ export class List {
         this.parent.append(line);
     }
 
+    // View all todo to one project
     public viewListProjectId(name: string, id: string, date: string, time: string, idProject: string) {
         let container = document.createElement("div") as HTMLDivElement;
         container.className = "width_100 flexRow list";
@@ -68,13 +70,28 @@ export class List {
             let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
 
             buttonDate.addEventListener("click", function () {
-                let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
-                alert(valueInput.value);
-                let xhr: XMLHttpRequest = new XMLHttpRequest();
-                xhr.onload = function () {
-                    let response: string = xhr.responseText;
-                    let json: any = JSON.parse(response);
+                let xhr2: XMLHttpRequest = new XMLHttpRequest();
+                xhr2.onload = function () {
+                    let response: string = xhr2.responseText;
+                    let json2: any = JSON.parse(response);
+
+                    // dsiplay a list of a project
+                    for (let x = 0; x < json2.length; x++) {
+                        if (json2[x].project_fk == idProject) {
+                            if (x < 1) {
+                                let a = json2[x].date;
+                            }
+                        } else {
+                        }
+                    }
                 }
+
+                xhr2.open('GET', './../api/todo');
+                xhr2.send();
+
+
+                let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
+                let xhr: XMLHttpRequest = new XMLHttpRequest();
 
                 let data = {
                     'id': id,
@@ -125,12 +142,7 @@ export class List {
 
             buttonDate.addEventListener("click", function () {
                 let valueInput = document.getElementById("inputTimeTodo" + id) as HTMLInputElement;
-                alert(valueInput.value);
                 let xhr: XMLHttpRequest = new XMLHttpRequest();
-                xhr.onload = function () {
-                    let response: string = xhr.responseText;
-                    let json: any = JSON.parse(response);
-                }
 
                 let data = {
                     'id': id,

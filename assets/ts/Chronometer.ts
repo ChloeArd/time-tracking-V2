@@ -6,13 +6,15 @@ export class Chronometer {
 
     public timer :Timer = new Timer();
 
+    // start a chrono
     public start() {
         this.timer.start();
-        this.timer.addEventListener("secondsUpdated", function (e) {
-        });
+        this.timer.addEventListener("secondsUpdated", function (e) {});
     }
 
+    // Stop a chrono
     public stop(id: string, idTodo: string) {
+        // I recover the time of the project and the time of a list so that I can then add them up
         let time = document.getElementById(id) as HTMLParagraphElement;
         let time1: string = time.innerHTML;
         let time2: string  = this.timer.getTimeValues().toString();
@@ -71,6 +73,7 @@ export class Chronometer {
     }
 }
 
+// Conditions for the weather to correctly display the new weather
 function conditionTime(hours: number, minutes: number, seconds: number, time: { innerHTML: string; }, content: string) {
     if (hours < 10 && minutes < 10 && seconds < 10) {
         time.innerHTML = "0" + hours + ":0" + minutes + ":0" + seconds;
@@ -98,6 +101,7 @@ function conditionTime(hours: number, minutes: number, seconds: number, time: { 
     }
 }
 
+// Conditions for time to correctly display the new time in an input as a value
 function conditionTime2(hours: number, minutes: number, seconds: number, time: { value: string; }, content: string) {
     if (hours < 10 && minutes < 10 && seconds < 10) {
         time.value = "0" + hours + ":0" + minutes + ":0" + seconds;
