@@ -48,6 +48,7 @@ export class List {
         let idDate = para.id;
         let clickDate = document.getElementById(idDate) as HTMLDivElement;
 
+        // When you click on the date you can modify the date, to save you press ok
         clickDate.addEventListener("click", function () {
             clickDate.innerHTML = "";
 
@@ -65,7 +66,6 @@ export class List {
             button.innerHTML = "Ok";
             button.id = "sendDate" + id;
             form.append(button);
-
 
             let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
 
@@ -89,7 +89,6 @@ export class List {
                 xhr2.open('GET', './../api/todo');
                 xhr2.send();
 
-
                 let valueInput = document.getElementById("inputDateTodo" + id) as HTMLInputElement;
                 let xhr: XMLHttpRequest = new XMLHttpRequest();
 
@@ -105,7 +104,6 @@ export class List {
             });
         });
 
-
         let div2 = document.createElement("div") as HTMLDivElement;
         div2.className = "width_10 center";
         div2.id = "time" + id;
@@ -119,6 +117,7 @@ export class List {
         let idTime = para2.id;
         let clickTime = document.getElementById(idTime) as HTMLDivElement;
 
+        // When you click on the time you can modify the time, to save you press ok
         clickTime.addEventListener("click", function () {
             clickTime.innerHTML = "";
 
@@ -136,7 +135,6 @@ export class List {
             button.innerHTML = "Ok";
             button.id = "sendTime" + id;
             form.append(button);
-
 
             let buttonDate = document.getElementById(button.id) as HTMLButtonElement;
 
