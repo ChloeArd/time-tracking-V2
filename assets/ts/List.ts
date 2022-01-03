@@ -141,7 +141,7 @@ export class List {
                     let hours: number = parseInt(valueInput.value.slice(0, 3));
                     tableHours.push(hours);
 
-                    // dsiplay a list of a project
+                    // display a list of a project
                     for (let x = 0; x < json2.length; x++) {
                         if (json2[x].project_fk == idProject && json2[x].id != id) {
                             let seconds: number = parseInt(json2[x].time.slice(6, 8));

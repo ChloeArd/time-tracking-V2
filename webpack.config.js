@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
             filename: "build/js/[name].js",
             publicPath: "/",
             clean: {
-                keep: /index\.html|index\.php|View|css|data|api/,
+                keep: /index\.html|index\.php|View|css|api/,
             },
         },
 
