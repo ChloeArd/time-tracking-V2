@@ -19,7 +19,6 @@ export class Project {
             let json: any = JSON.parse(response);
             console.log(json[1].properties.name);
 
-
             for (let i = 0; i < json.length; i++) {
                 let projects = document.getElementById("projectsHome") as HTMLDivElement;
                 let divContainer: HTMLDivElement = document.createElement("div");

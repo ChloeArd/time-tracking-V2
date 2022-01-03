@@ -29,7 +29,6 @@ class ProjectManager {
 
         try {
             R::store($project);
-
         }
         catch (SQL $e) {
             echo "Une erreur est survenue !";
