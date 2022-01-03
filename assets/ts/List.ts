@@ -120,6 +120,10 @@ export class List {
 
             let buttonTime = document.getElementById(button.id) as HTMLButtonElement;
 
+            let tableSeconds: number[] = [];
+            let tableMinutes: number[] = [];
+            let tableHours: number[] = [];
+
             buttonTime.addEventListener("click", function () {
                 let valueInput = document.getElementById("inputTimeTodo" + id) as HTMLInputElement;
 
@@ -128,44 +132,79 @@ export class List {
                     let response: string = xhr2.responseText;
                     let json2: any = JSON.parse(response);
 
+                    let seconds: number = parseInt(valueInput.value.slice(6, 8));
+                    tableSeconds.push(seconds);
+
+                    let minutes: number = parseInt(valueInput.value.slice(3, 5));
+                    tableMinutes.push(minutes);
+
+                    let hours: number = parseInt(valueInput.value.slice(0, 3));
+                    tableHours.push(hours);
+
                     // dsiplay a list of a project
                     for (let x = 0; x < json2.length; x++) {
-                        if (json2[x].id == id) {
+                        if (json2[x].project_fk == idProject && json2[x].id != id) {
                             let seconds: number = parseInt(json2[x].time.slice(6, 8));
-                            alert( seconds);
+                            tableSeconds.push(seconds);
 
                             let minutes: number = parseInt(json2[x].time.slice(3, 5));
-                            alert(minutes);
+                            tableMinutes.push(minutes);
 
                             let hours: number = parseInt(json2[x].time.slice(0, 3));
-                            alert(hours);
+                            tableHours.push(hours);
 
-                            if (x != 0) {
-                                alert("secondes");
-                                alert(seconds += seconds);
-                                alert("minutes");
-                                alert(minutes += minutes);
-                                alert("hours");
-                                alert(hours += hours);
+                            // Calculate the sum of all digits in the table
+                            let sumSeconds = tableSeconds.reduce(function (accumulator,currentValue) {return accumulator + currentValue; });
+                            let sumMinutes = tableMinutes.reduce(function (accumulator,currentValue) {return accumulator + currentValue; });
+                            let sumHours = tableHours.reduce(function (accumulator,currentValue) {return accumulator + currentValue; });
+
+                            let xhr: XMLHttpRequest = new XMLHttpRequest();
+                            let data = {
+                                'id': id,
+                                'time': valueInput.value,
+                                'idProject': idProject,
                             }
+                            xhr.open('PUT', './../api/todo');
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(data));
+
+                            let xhr3: XMLHttpRequest = new XMLHttpRequest();
+
+                            let data3 = {
+                                'id': idProject,
+                                'time': sumHours + ":" + sumMinutes + ":" + sumSeconds
+                            };
+
+                            xhr3.open('PUT', './../api/project');
+                            xhr3.setRequestHeader('Content-Type', 'application/json');
+                            xhr3.send(JSON.stringify(data3));
+                        }
+                    else {
+                            let xhr: XMLHttpRequest = new XMLHttpRequest();
+                            let data = {
+                                'id': id,
+                                'time': valueInput.value,
+                                'idProject': idProject,
+                            }
+                            xhr.open('PUT', './../api/todo');
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(data));
+
+                            let xhr3: XMLHttpRequest = new XMLHttpRequest();
+
+                            let data3 = {
+                                'id': idProject,
+                                'time': valueInput.value
+                            };
+
+                            xhr3.open('PUT', './../api/project');
+                            xhr3.setRequestHeader('Content-Type', 'application/json');
+                            xhr3.send(JSON.stringify(data3));
                         }
                     }
                 }
-
                 xhr2.open('GET', './../api/todo');
                 xhr2.send();
-
-                let xhr: XMLHttpRequest = new XMLHttpRequest();
-
-                let data = {
-                    'id': id,
-                    'time': valueInput.value,
-                    'idProject': idProject,
-                }
-
-                xhr.open('PUT', './../api/todo');
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify(data));
             });
         });
 

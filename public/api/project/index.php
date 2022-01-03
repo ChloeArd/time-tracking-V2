@@ -61,6 +61,12 @@ switch ($requestType) {
                 ];
             }
         }
+        elseif (isset($data->id, $data->time)) {
+            $stmt = $bdd->prepare("UPDATE project SET time = :time WHERE id = :id");
+            $stmt->bindValue(":id", $data->id);
+            $stmt->bindValue(":time", $data->time);
+            $stmt->execute();
+        }
         else {
             $response = [
                 'error' => 'error2',
