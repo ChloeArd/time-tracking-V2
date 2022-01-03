@@ -1,9 +1,9 @@
 {
-    "name": "chloe/time-tracking",
+    "name": "chloe/timetracking",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Chloe\\TimeTracking\\": "source/"
+            "Chloe\\Timetracking\\": "source/"
         }
     },
     "authors": [
@@ -13,6 +13,8 @@
         }
     ],
     "require": {
-      "ext-json": "*"
+      "ext-pdo": "*",
+        "gabordemooij/redbean": "^5.7",
+        "ext-json": "*"
     }
 }

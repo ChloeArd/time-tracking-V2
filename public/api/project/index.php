@@ -1,35 +1,29 @@
 <?php
 
-use Chloe\Portfolio\Model\DB;
+use Chloe\Timetracking\Model\DB;
+use Chloe\Timetracking\Model\Manager\ProjectManager;
+use RedBeanPHP\R;
 
 session_start();
-require_once '../../../DB.php';
+
+require "../../../vendor/autoload.php";
+require_once '../../../source/Model/DB.php';
 
 $bdd = DB::getInstance();
 
 header('Content-Type: application/json');
 
 $requestType = $_SERVER['REQUEST_METHOD'];
+$manager = new ProjectManager();
 
 switch ($requestType) {
     case 'GET':
         $response = [];
         if(isset($_GET['id'])) {
-            $stmt = $bdd->prepare("SELECT * FROM project WHERE id = :id");
-            $stmt->bindValue(":id", $_GET['id']);
+            $manager->getProject($_GET['id'], $_SESSION['id']);
         }
         else {
-            $stmt = $bdd->prepare("SELECT * FROM project");
-        }
-        if($stmt->execute()) {
-            foreach ($stmt->fetchAll() as $info) {
-                $response[] = [
-                    'id' => $info['id'],
-                    'name' => $info['name'],
-                    'time' => $info['time'],
-                    'date' => $info['date']
-                ];
-            }
+            $manager->getProjects($_SESSION['id']);
         }
         echo json_encode($response);
         return json_encode($response);

@@ -4,11 +4,12 @@ namespace Chloe\Timetracking\Model;
 
 use PDO;
 use PDOException;
+use RedBeanPHP\R;
 
 class DB {
 
     private string $server = 'localhost';
-    private string $nameDb = 'time';
+    private string $nameDb = 'time_v2';
     private string $user = 'root';
     private string $password = '';
 
@@ -20,9 +21,10 @@ class DB {
      */
     public function __construct() {
         try {
-            self::$dbInstance = new PDO("mysql:host=$this->server;dbname=$this->nameDb;charset=utf8", $this->user, $this->password);
-            self::$dbInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            self::$dbInstance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            R::setup("mysql:host=$this->server;dbname=$this->nameDb;charset=utf8", $this->user, $this->password);
+            R::getDatabaseAdapter()->getDatabase()->stringifyFetches(false);
+            R::getDatabaseAdapter()->getDatabase()->getPDO()->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
         }
         catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();

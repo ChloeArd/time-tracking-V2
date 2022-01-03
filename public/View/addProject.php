@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter un projet</title>
-    <link rel="stylesheet" href="../build/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/351e9300a0.js" crossorigin="anonymous"></script>
-    <script src="../build/js/front.js" defer></script>
-</head>
-<body>
+<?php
+
+use Chloe\Timetracking\Model\DB;
+
+session_start();
+if (isset($_SESSION['id'])) {?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ajouter un projet</title>
+        <link rel="stylesheet" href="../build/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/351e9300a0.js" crossorigin="anonymous"></script>
+        <script src="../build/js/front.js" defer></script>
+    </head>
+    <body>
     <main>
         <h1 class="center">Time Tracking <i class="far fa-clock"></i></h1>
         <a href="../index.php"><i class="far fa-arrow-alt-circle-left"></i></a>
@@ -24,30 +30,29 @@
             </div>
         </div>
     </main>
-</body>
-</html>
+    </body>
+    </html>
 
-<?php
+    <?php
+    require "../../source/Model/DB.php";
+    $bdd = DB::getInstance();
 
-use Chloe\Portfolio\Model\DB;
-require "../../DB.php";
-$bdd = DB::getInstance();
-
-if (isset($_POST['send'])) {
-    if (isset($_POST['name'])) {
-        $stmt = $bdd->prepare("
+    if (isset($_POST['send'])) {
+        if (isset($_POST['name'])) {
+            $stmt = $bdd->prepare("
         INSERT INTO project (name, time, date) VALUES (:name,  :time, :date)
     ");
-        $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
-        $stmt->bindValue(":time", "00:00:00");
-        $stmt->bindValue(":date", date("Y-m-d"));
-        $stmt->execute();
+            $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
+            $stmt->bindValue(":time", "00:00:00");
+            $stmt->bindValue(":date", date("Y-m-d"));
+            $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
-            header("Location: ../index.php?success=0");
-        }
-        else {
-            echo "Erreur lors de l'ajout du projet !";
+            if ($stmt->rowCount() > 0) {
+                header("Location: ../index.php?success=0");
+            }
+            else {
+                echo "Erreur lors de l'ajout du projet !";
+            }
         }
     }
 }
