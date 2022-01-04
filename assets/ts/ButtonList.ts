@@ -25,7 +25,7 @@ export class ButtonList {
         createElementA("marg10", "<i class=\"fas fa-trash-alt\"></i>", "./deleteToDo.php?id=" + this.id + "&id2=" + this.idProject, this.parent);
     }
 
-    // Button that activates and deactivates the stopwatch
+// Button that activates and deactivates the stopwatch
     public chrono(idList: string, parent: HTMLElement, idProject: string, valueTimeProject: string, valueTimeTodo: string, idProject2: string, idList2: string) {
         let element = document.createElement("button") as HTMLButtonElement;
         element.id = idList;
@@ -66,11 +66,9 @@ export class ButtonList {
 
                     let classChrono = document.getElementsByClassName("chrono");
                     for (let i = 0; i < classChrono.length; i++) {
-                        console.log("click sur : " + chronoClick.id);
 
                         if (classChrono[i].id !== chronoClick.id) {
                             let chronoId = document.getElementById(classChrono[i].id) as HTMLButtonElement;
-                            console.log(classChrono[i].id);
                             chronoId.disabled = Boolean("true");
                         }
                     }

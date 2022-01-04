@@ -40,7 +40,7 @@ if (isset($_SESSION['id'])) {?>
     if (isset($_POST['send'])) {
         if (isset($_POST['name'])) {
             $stmt = $bdd->prepare("
-        INSERT INTO project (name, time, date) VALUES (:name,  :time, :date)
+        INSERT INTO project (name, time, date) VALUES (:name, :time, :date)
     ");
             $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
             $stmt->bindValue(":time", "00:00:00");

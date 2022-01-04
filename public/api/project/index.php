@@ -1,8 +1,9 @@
 <?php
 
 use Chloe\Timetracking\Model\DB;
+use Chloe\Timetracking\Model\Entity\Project;
 use Chloe\Timetracking\Model\Manager\ProjectManager;
-use RedBeanPHP\R;
+use Chloe\Timetracking\Model\Manager\TodoManager;
 
 session_start();
 
@@ -18,21 +19,42 @@ $manager = new ProjectManager();
 
 switch ($requestType) {
     case 'GET':
-        $response = [];
         if(isset($_GET['id'])) {
             $manager->getProject($_GET['id'], $_SESSION['id']);
         }
         else {
             $manager->getProjects($_SESSION['id']);
         }
-        echo json_encode($response);
-        return json_encode($response);
+
+        return "";
+
+    case 'POST':
+        $response = [
+            'error' => 'success',
+            'message' => 'Votre projet a été ajouté avec succès !',
+        ];
+
+        $data = json_decode(file_get_contents('php://input'));
+        if (isset($data->name, $data->time, $data->date, $data->user_fk)) {
+
+            $name = htmlentities(trim(ucfirst($data->name)));
+
+            $content = new Project(null, $name, $data->time, $data->date, $_SESSION['id']);
+            $result = $manager->add($content);
+            if (!$result) {
+                $response = [
+                    'error' => 'error1',
+                    'message' => 'Une erreur est survenue.',
+                ];
+            }
+        }
 
     case 'PUT':
         $response = [
             'error' => 'success',
             'message' => 'Ok.',
         ];
+
         $data = json_decode(file_get_contents('php://input'));
 
         if (isset($data->id, $data->date, $data->time, $data->idTodo, $data->dateTodo, $data->timeTodo)) {
@@ -68,6 +90,36 @@ switch ($requestType) {
             ];
         }
 
+        echo json_encode($response);
+        return json_encode($response);
+
+    case 'DELETE':
+        $response = [
+            'error' => 'success',
+            'message' => 'Le lien a été supprimé avec succès.',
+        ];
+
+        $data = json_decode(file_get_contents('php://input'));
+        if (isset($data->id)) {
+            $todoManager = new TodoManager();
+            $id = intval($data->id);
+
+            $result = $manager->delete($id);
+            $result2 = $todoManager->delete($id);
+
+            if (!$result && !$result2) {
+                $response = [
+                    'error' => 'error1',
+                    'message' => 'Une erreur est survenue.',
+                ];
+            }
+        }
+        else {
+            $response = [
+                'error' => 'error2',
+                'message' => 'L\'id est manquant.',
+            ];
+        }
         echo json_encode($response);
         return json_encode($response);
 }

@@ -17,7 +17,7 @@ class Todo {
      * @param string|null $date
      * @param Project|null $project_fk
      */
-    public function __construct(?int $id, ?string $name, ?string $time, ?string $date, ?Project $project_fk) {
+    public function __construct(?int $id = null, ?string $name = null, ?string $time = null, ?string $date = null, ?Project $project_fk = null) {
         $this->id = $id;
         $this->name = $name;
         $this->time = $time;

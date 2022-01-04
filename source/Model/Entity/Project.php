@@ -17,7 +17,7 @@ class Project {
      * @param string|null $date
      * @param User|null $user_fk
      */
-    public function __construct(?int $id, ?string $name, ?string $time, ?string $date, ?User $user_fk) {
+    public function __construct(?int $id = null, ?string $name = null, ?string $time = null, ?string $date = null, ?User $user_fk = null) {
         $this->id = $id;
         $this->name = $name;
         $this->time = $time;

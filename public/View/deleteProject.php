@@ -35,6 +35,7 @@ if (isset($_SESSION['id'])) {?>
     </html>
 
     <?php
+    /*
     require "../../source/Model/DB.php";
     $bdd = DB::getInstance();
 
@@ -55,4 +56,5 @@ if (isset($_SESSION['id'])) {?>
             }
         }
     }
+    */
 }

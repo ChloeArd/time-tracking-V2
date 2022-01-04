@@ -15,9 +15,7 @@ export class Project {
         let xhr: XMLHttpRequest = new XMLHttpRequest();
         xhr.onload = function () {
             let response: string = xhr.responseText;
-            console.log(response);
             let json: any = JSON.parse(response);
-            console.log(json);
 
             for (let i = 0; i < json.length; i++) {
                 let projects = document.getElementById("projectsHome") as HTMLDivElement;
@@ -57,8 +55,6 @@ export class Project {
                         if (json2[x].project_fk == json[i].id) {
                             const list: List = new List(div5, json2[x].id, json[i].time, json2[x].time);
                             list.view(json2[x].name, json[i].id);
-                        }
-                        else {
                         }
                     }
                 }
@@ -157,26 +153,29 @@ export class Project {
         xhr.send();
     }
 
-    // edit a project
+    // When the timer ends I change the date and time of the project that of the task
     public edit (idProject : string, time : string, id: string, timeTodo: string) {
         let idTodo = id.replace("time", "");
         let submitClick = document.getElementById("submit" + idTodo) as HTMLInputElement;
-            submitClick?.addEventListener("click", function () {
-                let xhr: XMLHttpRequest = new XMLHttpRequest();
-                let idP = idProject.replace("time", "");
+        submitClick?.addEventListener("click", function () {
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+            let idP = idProject.replace("time", "");
 
-                let data = {
-                    'id': idP,
-                    'date': new Date().toLocaleDateString(),
-                    'time': time,
-                    'idTodo': idTodo,
-                    'dateTodo': new Date().toLocaleDateString(),
-                    'timeTodo': timeTodo
-                }
 
-                xhr.open('PUT', './../api/project');
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify(data));
-            });
-        }
+            let data = {
+                'id': idP,
+                'date': new Date().toLocaleDateString(),
+                'time': time,
+                'idTodo': idTodo,
+                'dateTodo': new Date().toLocaleDateString(),
+                'timeTodo': timeTodo
+            }
+
+            alert(JSON.stringify(data));
+
+            xhr.open('PUT', './../api/project');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
+    }
 }

@@ -9,18 +9,30 @@ use RedBeanPHP\RedException\SQL;
 
 class ProjectManager {
 
+    /**
+     * displays all the projects of the logged-in user
+     * @param int $user_fk
+     */
     public function getProjects(int $user_fk) {
-        //$project = R::findAll("project", 'user_fk = ?', [$user_fk]);
         $project = R::getAll ("SELECT * FROM project WHERE user_fk = $user_fk") ;
-        $project;
+        print_r(json_encode($project));
     }
 
+    /**
+     * displays one project of the logged-in user
+     * @param int $id
+     * @param int $user_fk
+     */
     public function getProject(int $id, int $user_fk) {
         $project = R::findOne("project", "id = ? AND user_fk = ?", [$id, $user_fk]);
-        var_dump($project);
+        print_r(json_encode($project));
     }
 
-    public function add(Project $proj) {
+    /**
+     * add a project
+     * @param Project $proj
+     */
+    public function add(Project $proj): bool {
         $project = R::dispense("project");
 
         $project->name = $proj->getName();
@@ -34,8 +46,13 @@ class ProjectManager {
         catch (SQL $e) {
             echo "Une erreur est survenue !";
         }
+        return true;
     }
 
+    /**
+     * update the time and date to project
+     * @param Project $proj
+     */
     public function updateTimeDate(Project $proj) {
         $project = R::load("project", $proj->getId());
 
@@ -50,6 +67,10 @@ class ProjectManager {
         }
     }
 
+    /**
+     * update a time to project
+     * @param Project $proj
+     */
     public function updateTime(Project $proj) {
         $project = R::load("project", $proj->getId());
 
@@ -63,7 +84,13 @@ class ProjectManager {
         }
     }
 
-    public function delete(int $id) {
+    /**
+     * delete a project and his tasks
+     * @param int $id
+     */
+    public function delete(int $id): int {
+        R::exec("DELETE FROM todo WHERE project_fk = $id");
         R::trash("project", $id);
+        return $id;
     }
 }
