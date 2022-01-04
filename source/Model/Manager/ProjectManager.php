@@ -10,8 +10,9 @@ use RedBeanPHP\RedException\SQL;
 class ProjectManager {
 
     public function getProjects(int $user_fk) {
-        $project = R::findAll("project", 'user_fk = ?', [$user_fk]);
-        var_dump($project);
+        //$project = R::findAll("project", 'user_fk = ?', [$user_fk]);
+        $project = R::getAll ("SELECT * FROM project WHERE user_fk = $user_fk") ;
+        $project;
     }
 
     public function getProject(int $id, int $user_fk) {
