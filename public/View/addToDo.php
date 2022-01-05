@@ -30,6 +30,5 @@ if (isset($_SESSION['id'])) {?>
         </main>
     </body>
     </html>
-
     <?php
 }

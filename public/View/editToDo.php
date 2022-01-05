@@ -1,11 +1,7 @@
 <?php
 
-//use Chloe\Timetracking\Model\DB;
-
 session_start();
-//$bdd = DB::getInstance();
 
-//require_once "../../source/Model/DB.php";
 if (isset($_SESSION['id'])) {?>
 
     <!DOCTYPE html>
@@ -27,21 +23,10 @@ if (isset($_SESSION['id'])) {?>
                     <h2 class="center">Modifier une tâche</h2>
                     <div class="flexColumn width_100 pad15">
                         <form action="" method="post" class="flexColumn width_60 auto">
-                            <?php
-                            /*$stmt = $bdd->prepare("SELECT * from todo WHERE id = :id");
-                            $stmt->bindValue(":id", $_GET['id']);
-                            $state = $stmt->execute();
-
-                            if ($state) {
-                                foreach ($stmt->fetchAll() as $todo) {*/?>
-                                    <input id="name" name="name" type="text" value="">
-                                    <input id="id" name="id" type="hidden" value="<?=$_GET['id']?>">
-                                    <input id="id2" name="id2" type="hidden" value="<?=$_GET['id2']?>">
-                                    <input id="updateTodo" type="submit" name="send" value="Modifier">
-                                    <?php
-                                /*}
-                            }*/
-                            ?>
+                            <input id="name" name="name" type="text">
+                            <input id="id" name="id" type="hidden" value="<?=$_GET['id']?>">
+                            <input id="id2" name="id2" type="hidden" value="<?=$_GET['id2']?>">
+                            <input id="updateTodo" type="submit" name="send" value="Modifier">
                         </form>
                     </div>
                 </div>

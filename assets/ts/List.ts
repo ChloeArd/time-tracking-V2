@@ -217,6 +217,7 @@ export class List {
         this.parent.append(line);
     }
 
+    // add a task
     public add() {
         let addTodo = document.getElementById("addTodo") as HTMLInputElement;
 
@@ -230,7 +231,7 @@ export class List {
                 'name': name.value,
                 'date': new Date().toLocaleDateString(),
                 'time': "00:00:00",
-                "projectFk": projectFk.value
+                'projectFk': projectFk.value
             }
 
             alert(data.name + "\n" + data.date + "\n" + data.time + "\n" + data.projectFk);
@@ -241,10 +242,28 @@ export class List {
         });
     }
 
+    // eidt a name to task
     public edit() {
+        let updateTodo = document.getElementById("updateTodo") as HTMLInputElement;
 
+        updateTodo.addEventListener("click", function () {
+            let id = document.getElementById('id') as HTMLInputElement;
+            let name = document.getElementById("name") as HTMLInputElement;
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            let data = {
+                'id': id.value,
+                'name': name.value
+            }
+
+            xhr.open('PUT', './../api/todo');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
     }
 
+    // delete a task
     public delete() {
         let deleteTodo = document.getElementById("deleteTodo") as HTMLInputElement;
 

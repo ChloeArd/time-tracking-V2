@@ -34,7 +34,7 @@ switch ($requestType) {
         ];
 
         $data = json_decode(file_get_contents('php://input'));
-        if (isset($data->name, $data->time, $data->date, $data->projectFk)) {
+        if (isset($data->name, $data->date, $data->time, $data->projectFk)) {
 
             $project = R::dispense("todo");
 
@@ -105,7 +105,7 @@ switch ($requestType) {
         }
         elseif (isset($data->id, $data->name)) {
 
-            $manager->updateName(intval($data->id), $data->name);
+            $manager->updateName(intval($data->id), htmlentities(trim(ucfirst($data->name))));
         }
         else {
             $response = [
