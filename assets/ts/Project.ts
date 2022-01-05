@@ -48,7 +48,6 @@ export class Project {
                 let xhr2: XMLHttpRequest = new XMLHttpRequest();
                 xhr2.onload = function () {
                     let response: string = xhr2.responseText;
-                    console.log(response);
                     let json2: any = JSON.parse(response);
 
                     // dsiplay a list of a project
@@ -162,24 +161,6 @@ export class Project {
 
             let xhr: XMLHttpRequest = new XMLHttpRequest();
 
-            /*xhr.onload = function () {
-                let response = JSON.parse(xhr.responseText);
-                if (response.hasOwnProperty('error') && response.hasOwnProperty('message')) {
-                    if (response.error === "success") {
-                        window.location.href = "index.php?success=0&message=";
-                    }
-                    if (response.error === "error1") {
-                        window.location.href = "index.php?controller=link&action=add&error=1";
-                    }
-                    if (response.error === "error2") {
-                        window.location.href = "index.php?controller=link&action=add&error=2&message=";
-                    }
-                    if (response.error === "error3") {
-                        window.location.href = "index.php?controller=link&action=add&error=3&message=";
-                    }
-                }
-            }*/
-
             let data = {
                 'name': name.value,
                 'date': new Date().toLocaleDateString(),
@@ -229,7 +210,6 @@ export class Project {
                 'id': id.value,
             }
 
-            alert(data);
             xhr.open('DELETE', './../api/project');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(data));

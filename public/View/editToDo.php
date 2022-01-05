@@ -1,8 +1,11 @@
 <?php
-use Chloe\Timetracking\Model\DB;
+
+//use Chloe\Timetracking\Model\DB;
 
 session_start();
-$bdd = DB::getInstance();
+//$bdd = DB::getInstance();
+
+//require_once "../../source/Model/DB.php";
 if (isset($_SESSION['id'])) {?>
 
     <!DOCTYPE html>
@@ -25,19 +28,19 @@ if (isset($_SESSION['id'])) {?>
                     <div class="flexColumn width_100 pad15">
                         <form action="" method="post" class="flexColumn width_60 auto">
                             <?php
-                            $stmt = $bdd->prepare("SELECT * from todo WHERE id = :id");
+                            /*$stmt = $bdd->prepare("SELECT * from todo WHERE id = :id");
                             $stmt->bindValue(":id", $_GET['id']);
                             $state = $stmt->execute();
 
                             if ($state) {
-                                foreach ($stmt->fetchAll() as $todo) {?>
-                                    <input name="name" type="text" value="<?=$todo['name']?>">
-                                    <input name="id" type="hidden" value="<?=$_GET['id']?>">
-                                    <input name="id2" type="hidden" value="<?=$_GET['id2']?>">
-                                    <input type="submit" name="send" value="Modifier">
+                                foreach ($stmt->fetchAll() as $todo) {*/?>
+                                    <input id="name" name="name" type="text" value="">
+                                    <input id="id" name="id" type="hidden" value="<?=$_GET['id']?>">
+                                    <input id="id2" name="id2" type="hidden" value="<?=$_GET['id2']?>">
+                                    <input id="updateTodo" type="submit" name="send" value="Modifier">
                                     <?php
-                                }
-                            }
+                                /*}
+                            }*/
                             ?>
                         </form>
                     </div>
@@ -47,20 +50,4 @@ if (isset($_SESSION['id'])) {?>
     </body>
     </html>
     <?php
-    if (isset($_POST['send'])) {
-        if (isset($_POST['id'], $_POST['name'], $_POST['id2'])) {
-            $project_fk = $_POST['id2'];
-            $stmt = $bdd->prepare("UPDATE todo SET name = :name WHERE id = :id");
-            $stmt->bindValue(":id", $_POST['id']);
-            $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-                header("Location: viewProject.php?id=$project_fk&success=0");
-            }
-            else {
-                echo "Erreur lors de la modification de l'intitulé de la tâche !";
-            }
-        }
-    }
 }

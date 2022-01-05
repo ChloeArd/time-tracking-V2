@@ -2,7 +2,6 @@
 
 namespace Chloe\Timetracking\Model\Manager;
 
-use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Entity\Project;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException\SQL;

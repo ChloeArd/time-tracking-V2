@@ -2,11 +2,12 @@
 
 use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Manager\TodoManager;
+use RedBeanPHP\RedException\SQL;
 
 session_start();
 
 require "../../../vendor/autoload.php";
-require_once '../../../DB.php';
+require_once '../../../source/Model/DB.php';
 
 $bdd = DB::getInstance();
 
@@ -17,8 +18,8 @@ $manager = new TodoManager();
 
 switch ($requestType) {
     case 'GET':
-        if(isset($_GET['id'])) {
-            $manager->getTodo($_GET['id']);
+        if(isset($_GET['id'], $_GET['id2'])) {
+            $manager->getTodo($_GET['id'], $_GET['id2']);
         }
         else {
             $manager->getTodos();
@@ -29,21 +30,24 @@ switch ($requestType) {
     case 'POST':
         $response = [
             'error' => 'success',
-            'message' => 'La tâche a été ajouté avec succès.',
+            'message' => 'Votre tâche a été ajouté avec succès !',
         ];
 
         $data = json_decode(file_get_contents('php://input'));
-        if (isset($data->name, $data->time, $data->date, $data->user_fk)) {
+        if (isset($data->name, $data->time, $data->date, $data->projectFk)) {
 
-            $name = htmlentities(trim(ucfirst($data->name)));
+            $project = R::dispense("todo");
 
-            $content = new Project(null, $name, $data->time, $data->date, $_SESSION['id']);
-            $result = $manager->add($content);
-            if (!$result) {
-                $response = [
-                    'error' => 'error1',
-                    'message' => 'Une erreur est survenue.',
-                ];
+            $project->name = htmlentities(trim(ucfirst($data->name)));
+            $project->time = $data->time;
+            $project->date = $data->date;
+            $project->projectFk = $data->projectFk;
+
+            try {
+                R::store($project);
+            }
+            catch (SQL $e) {
+                echo "Une erreur est survenue !";
             }
         }
 
@@ -99,6 +103,10 @@ switch ($requestType) {
                 ];
             }
         }
+        elseif (isset($data->id, $data->name)) {
+
+            $manager->updateName(intval($data->id), $data->name);
+        }
         else {
             $response = [
                 'error' => 'error2',
@@ -110,7 +118,6 @@ switch ($requestType) {
         return json_encode($response);
 
     case 'DELETE':
-
         $response = [
             'error' => 'success',
             'message' => 'La tâche a été supprimé avec succès.',

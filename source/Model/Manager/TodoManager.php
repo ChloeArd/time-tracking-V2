@@ -2,7 +2,6 @@
 
 namespace Chloe\Timetracking\Model\Manager;
 
-use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Entity\Project;
 use Chloe\Timetracking\Model\Entity\Todo;
 use RedBeanPHP\R;
@@ -22,8 +21,8 @@ class TodoManager {
      * view one task
      * @param int $id
      */
-    public function getTodo(int $project_fk) {
-        $todo = R::findOne("todo", "project_fk = ?", [$project_fk]);
+    public function getTodo(int $project_fk, int $id) {
+        $todo = R::findOne("todo", "id = ? AND project_fk = ?", [$id, $project_fk]);
         print_r(json_encode($todo));
     }
 
@@ -51,10 +50,10 @@ class TodoManager {
      * update name to task
      * @param Todo $todo
      */
-    public function updateName(Todo $todo) {
-        $project = R::load("todo", $todo->getId());
+    public function updateName(int $id, string $name) {
+        $project = R::load("todo", $id);
 
-        $project->name = $todo->setName($todo->getName());
+        $project->name = $name;
 
         try {
             R::store($project);

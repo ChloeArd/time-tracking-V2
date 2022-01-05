@@ -216,4 +216,50 @@ export class List {
         line.className = "lineHorizontal";
         this.parent.append(line);
     }
+
+    public add() {
+        let addTodo = document.getElementById("addTodo") as HTMLInputElement;
+
+        addTodo.addEventListener("click", function () {
+            let name = document.getElementById('name') as HTMLInputElement;
+            let projectFk = document.getElementById('project_fk') as HTMLInputElement;
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            let data = {
+                'name': name.value,
+                'date': new Date().toLocaleDateString(),
+                'time': "00:00:00",
+                "projectFk": projectFk.value
+            }
+
+            alert(data.name + "\n" + data.date + "\n" + data.time + "\n" + data.projectFk);
+
+            xhr.open('POST', './../api/todo', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
+    public edit() {
+
+    }
+
+    public delete() {
+        let deleteTodo = document.getElementById("deleteTodo") as HTMLInputElement;
+
+        deleteTodo.addEventListener("click", function () {
+            let id = document.getElementById('id') as HTMLInputElement;
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            let data = {
+                'id': id.value,
+            }
+
+            xhr.open('DELETE', './../api/todo');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
+    }
 }

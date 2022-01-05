@@ -1,7 +1,4 @@
 <?php
-
-use Chloe\Timetracking\Model\DB;
-
 session_start();
 if (isset($_SESSION['id'])) {?>
     <!DOCTYPE html>
@@ -23,9 +20,9 @@ if (isset($_SESSION['id'])) {?>
                     <h2 class="center">Ajouter une tâche</h2>
                     <div class="flexColumn width_100 pad15">
                         <form action="" method="post" class="flexColumn width_60 auto">
-                            <input name="name" type="text" placeholder="Nom de la tâche">
-                            <input type="hidden" name="project_fk" value="<?=$_GET['id']?>">
-                            <input type="submit" name="send" value="Ajouter">
+                            <input id="name" name="name" type="text" placeholder="Nom de la tâche">
+                            <input id="project_fk" type="hidden" name="project_fk" value="<?=$_GET['id']?>">
+                            <input id="addTodo" type="submit" name="send" value="Ajouter">
                         </form>
                     </div>
                 </div>
@@ -35,26 +32,4 @@ if (isset($_SESSION['id'])) {?>
     </html>
 
     <?php
-    require "../../source/Model/DB.php";
-    $bdd = DB::getInstance();
-
-    if (isset($_POST['send'])) {
-        if (isset($_POST['name'], $_POST['project_fk'])) {
-
-            $stmt = $bdd->prepare("
-            INSERT INTO todo (name, time, date, project_fk) VALUES (:name, :time, :date, :project_fk)
-        ");
-            $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
-            $stmt->bindValue(":time", "00:00:00");
-            $stmt->bindValue(":date", date("Y-m-d"));
-            $stmt->bindValue(":project_fk", $_POST['project_fk']);
-            $stmt->execute();
-            if ($stmt->rowCount() > 0) {
-                header("Location: ../index.php?success=0");
-            }
-            else {
-                echo "Erreur lors de l'ajout d'une tâche !";
-            }
-        }
-    }
 }
