@@ -6,7 +6,6 @@ import {TimeProject} from "./TimeProject.ts";
 import {ButtonList} from "./ButtonList.ts";
 // @ts-ignore
 import {List} from "./List.ts";
-import * as $ from "jquery";
 
 export class Project {
 
@@ -175,8 +174,8 @@ export class Project {
 
     // When the timer ends I change the date and time of the project that of the task
     public edit (idProject : string, time : string, id: string, timeTodo: string) {
-        let idTodo = id.replace("time", "");
-        let submitClick = document.getElementById("submit" + idTodo) as HTMLInputElement;
+        console.log(id);
+        let submitClick = document.getElementById("submit" + id) as HTMLInputElement;
         submitClick?.addEventListener("click", function () {
             let xhr: XMLHttpRequest = new XMLHttpRequest();
             let idP = idProject.replace("time", "");
@@ -185,12 +184,10 @@ export class Project {
                 'id': idP,
                 'date': new Date().toLocaleDateString(),
                 'time': time,
-                'idTodo': idTodo,
+                'idTodo': id,
                 'dateTodo': new Date().toLocaleDateString(),
                 'timeTodo': timeTodo
             }
-
-            alert(JSON.stringify(data));
 
             xhr.open('PUT', './../api/project');
             xhr.setRequestHeader('Content-Type', 'application/json');

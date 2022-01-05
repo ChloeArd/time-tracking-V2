@@ -41,7 +41,7 @@ switch ($requestType) {
             $project->name = htmlentities(trim(ucfirst($data->name)));
             $project->time = $data->time;
             $project->date = $data->date;
-            $project->projectFk = $data->projectFk;
+            $project->projectFk = intval($data->projectFk);
 
             try {
                 R::store($project);
@@ -50,7 +50,6 @@ switch ($requestType) {
                 echo "Une erreur est survenue !";
             }
         }
-
 
     case 'PUT':
         $response = [
@@ -61,18 +60,8 @@ switch ($requestType) {
 
         if (isset($data->id, $data->date, $data->idProject)) {
             if (DateTime::createFromFormat("d/m/Y", $data->date)) {
-                $stmt = $bdd->prepare("UPDATE todo SET date = :date WHERE id = :id AND project_fk = :project_fk");
-                $stmt->bindValue(":id", $data->id);
-                $stmt->bindValue(":date", $data->date);
-                $stmt->bindValue(":project_fk", $data->idProject);
-                $stmt->execute();
 
-                if (!$stmt->execute()) {
-                    $response = [
-                        'error' => 'error1',
-                        'message' => 'Une erreur est survenue.',
-                    ];
-                }
+                $manager->updateDate($data->id, $data->date);
             }
             else {
                 $response = [
@@ -83,18 +72,8 @@ switch ($requestType) {
         }
         elseif (isset($data->id, $data->time, $data->idProject)) {
             if (DateTime::createFromFormat("h:i:s", $data->time)) {
-                $stmt = $bdd->prepare("UPDATE todo SET time = :time WHERE id = :id AND project_fk = :project_fk");
-                $stmt->bindValue(":id", $data->id);
-                $stmt->bindValue(":time", $data->time);
-                $stmt->bindValue(":project_fk", $data->idProject);
-                $stmt->execute();
 
-                if (!$stmt->execute()) {
-                    $response = [
-                        'error' => 'error1',
-                        'message' => 'Une erreur est survenue.',
-                    ];
-                }
+                $manager->updateTime($data->id, $data->time);
             }
             else {
                 $response = [

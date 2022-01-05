@@ -63,14 +63,28 @@ class TodoManager {
         }
     }
 
+    public function updateDateTime(int $id, string $time, string $date) {
+        $project = R::load("todo", $id);
+
+        $project->time = $time;
+        $project->date = $date;
+
+        try {
+            R::store($project);
+        }
+        catch (SQL $e) {
+            echo "Une erreur est survenue";
+        }
+    }
+
     /**
      * update date to task
      * @param Todo $todo
      */
-    public function updateDate(Todo $todo) {
-        $project = R::load("todo", $todo->getId());
+    public function updateDate(int $id, string $date) {
+        $project = R::load("todo", $id);
 
-        $project->date = $todo->setDate($todo->getDate());
+        $project->date = $date;
 
         try {
             R::store($project);
@@ -84,10 +98,10 @@ class TodoManager {
      * update time to task
      * @param Todo $todo
      */
-    public function updateTime(Todo $todo) {
-        $project = R::load("todo", $todo->getId());
+    public function updateTime(int $id, string $time) {
+        $project = R::load("todo", $id);
 
-        $project->time = $todo->setTime($todo->getTime());
+        $project->time = $time;
 
         try {
             R::store($project);

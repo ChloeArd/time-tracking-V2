@@ -52,11 +52,11 @@ class ProjectManager {
      * update the time and date to project
      * @param Project $proj
      */
-    public function updateTimeDate(Project $proj) {
-        $project = R::load("project", $proj->getId());
+    public function updateTimeDate(int $id, string $time, string $date) {
+        $project = R::load("project", $id);
 
-        $project->time = $proj->setTime($proj->getTime());
-        $project->date = $proj->setDate($proj->getDate());
+        $project->time = $time;
+        $project->date = $date;
 
         try {
             R::store($project);
@@ -70,10 +70,10 @@ class ProjectManager {
      * update a time to project
      * @param Project $proj
      */
-    public function updateTime(Project $proj) {
-        $project = R::load("project", $proj->getId());
+    public function updateTime(int $id, string $time) {
+        $project = R::load("project", $id);
 
-        $project->time = $proj->setTime($proj->getTime());
+        $project->time = $time;
 
         try {
             R::store($project);

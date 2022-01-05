@@ -234,8 +234,6 @@ export class List {
                 'projectFk': projectFk.value
             }
 
-            alert(data.name + "\n" + data.date + "\n" + data.time + "\n" + data.projectFk);
-
             xhr.open('POST', './../api/todo', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(data));
