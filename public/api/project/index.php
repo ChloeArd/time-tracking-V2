@@ -39,27 +39,15 @@ switch ($requestType) {
         $data = json_decode(file_get_contents('php://input'));
         if (isset($data->name, $data->time, $data->date)) {
 
-            $name = htmlentities(trim(ucfirst($data->name)));
-
-            /*$content = new Project(null, $name, $data->time, $data->date, $_SESSION['id']);
-            $result = $manager->add($content);
-            if (!$result) {
-                $response = [
-                    'error' => 'error1',
-                    'message' => 'Une erreur est survenue.',
-                ];
-            }*/
-
             $project = R::dispense("project");
 
-            $project->name = $data->name;
+            $project->name = htmlentities(trim(ucfirst($data->name)));
             $project->time = $data->time;
             $project->date = $data->date;
             $project->userFk = $_SESSION['id'];
 
             try {
                 R::store($project);
-                echo print_r(json_encode($project));
             }
             catch (SQL $e) {
                 echo "Une erreur est survenue !";
@@ -122,9 +110,8 @@ switch ($requestType) {
             $id = intval($data->id);
 
             $result = $manager->delete($id);
-            $result2 = $todoManager->delete($id);
 
-            if (!$result && !$result2) {
+            if (!$result) {
                 $response = [
                     'error' => 'error1',
                     'message' => 'Une erreur est survenue.',

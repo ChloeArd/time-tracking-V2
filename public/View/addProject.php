@@ -1,8 +1,4 @@
 <?php
-
-use RedBeanPHP\R;
-use RedBeanPHP\RedException\SQL;
-
 session_start();
 if (isset($_SESSION['id'])) {?>
     <!DOCTYPE html>
@@ -33,26 +29,5 @@ if (isset($_SESSION['id'])) {?>
     </main>
     </body>
     </html>
-
-    <?php
-    /*require "../../vendor/autoload.php";
-    require "../../source/Model/DB.php";
-
-    if (isset($_POST['send'])) {
-        if (isset($_POST['name'])) {
-
-            $project = R::dispense('project');
-
-            $project->name = $_POST['name'];
-            $project->time = "00:00:00";
-            $project->date = date("d/m/Y");
-            $project->user_fk = $_SESSION['id'];
-
-            try {
-                R::store($project);
-            } catch (SQL $e) {
-                header("Location: ../../View/erreur");
-                echo "Une erreur est survenue !";
-            }
-        }*/
-    }
+<?php
+}

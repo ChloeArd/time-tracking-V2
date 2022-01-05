@@ -1,7 +1,4 @@
 <?php
-
-use Chloe\Timetracking\Model\DB;
-
 session_start();
 if (isset($_SESSION['id'])) {?>
     <!DOCTYPE html>
@@ -35,26 +32,4 @@ if (isset($_SESSION['id'])) {?>
     </html>
 
     <?php
-    /*
-    require "../../source/Model/DB.php";
-    $bdd = DB::getInstance();
-
-    if (isset($_POST['send'])) {
-        if (isset($_POST['id'])) {
-            $stmt = $bdd->prepare("DELETE FROM todo WHERE project_fk = :project_fk");
-            $stmt->bindValue(":project_fk", $_POST['id']);
-            $stmt->execute();
-            $stmt = $bdd->prepare("DELETE FROM project WHERE id = :id");
-            $stmt->bindValue(":id", $_POST['id']);
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-                header("Location: ../index.php?success=0");
-            }
-            else {
-                echo "Erreur lors de la suppression du projet !";
-            }
-        }
-    }
-    */
 }

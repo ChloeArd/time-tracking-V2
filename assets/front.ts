@@ -11,6 +11,10 @@ if (document.getElementById("addProject") as HTMLInputElement) {
     projects.add();
 }
 
+if (document.getElementById("deleteProject") as HTMLInputElement) {
+    projects.delete();
+}
+
 if (document.getElementById("projectOnly") as HTMLDivElement) {
     projects.viewOnly();
 }

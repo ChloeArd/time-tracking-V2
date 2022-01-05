@@ -16,7 +16,6 @@ export class Project {
         xhr.onload = function () {
             let response: string = xhr.responseText;
             let json: any = JSON.parse(response);
-            console.log(response);
 
             for (let i = 0; i < json.length; i++) {
                 let projects = document.getElementById("projectsHome") as HTMLDivElement;
@@ -219,7 +218,7 @@ export class Project {
     }
 
     public delete() {
-        let deleteProject = document.getElementById("delecteProject") as HTMLInputElement;
+        let deleteProject = document.getElementById("deleteProject") as HTMLInputElement;
 
         deleteProject.addEventListener("click", function () {
             let id = document.getElementById('id') as HTMLInputElement;
@@ -230,6 +229,7 @@ export class Project {
                 'id': id.value,
             }
 
+            alert(data);
             xhr.open('DELETE', './../api/project');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(data));
