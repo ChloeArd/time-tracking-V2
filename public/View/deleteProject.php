@@ -24,8 +24,8 @@ if (isset($_SESSION['id'])) {?>
                     <div class="flexColumn width_100 pad15">
                         <form action="" method="post" class="flexColumn width_60 auto">
                             <h3 class="center red">Voulez-vous vraiment supprimer ce projet ?</h3>
-                            <input type="hidden" name="id" value="<?=$_GET['id']?>">
-                            <input type="submit" name="send" value="Oui">
+                            <input id="id" type="hidden" name="id" value="<?=$_GET['id']?>">
+                            <input id="deleteProject" type="submit" name="send" value="Oui">
                         </form>
                     </div>
                 </div>

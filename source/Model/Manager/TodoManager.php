@@ -11,21 +11,20 @@ use RedBeanPHP\RedException\SQL;
 class TodoManager {
 
     /**
-     * view one task
-     * @param int $id
+     * view all task to project
      */
-    public function getTodo(int $id, Project $project_fk) {
-        $todo = R::findOne("todo", "id = ? AND project_fk = ?", [$id, $project_fk]);
-        var_dump($todo);
+    public function getTodos() {
+        $todo = R::getAll("SELECT * FROM todo") ;
+        print_r(json_encode($todo));
     }
 
     /**
-     * view all task to project
-     * @param int $project_fk
+     * view one task
+     * @param int $id
      */
-    public function getTodos(int $project_fk) {
-        $todo = R::findAll("todo", "project_fk = ?", [$project_fk]);
-        var_dump($todo);
+    public function getTodo(int $project_fk) {
+        $todo = R::findOne("todo", "project_fk = ?", [$project_fk]);
+        print_r(json_encode($todo));
     }
 
     /**

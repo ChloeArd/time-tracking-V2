@@ -1,6 +1,7 @@
 <?php
 
-use Chloe\Timetracking\Model\DB;
+use RedBeanPHP\R;
+use RedBeanPHP\RedException\SQL;
 
 session_start();
 if (isset($_SESSION['id'])) {?>
@@ -34,25 +35,24 @@ if (isset($_SESSION['id'])) {?>
     </html>
 
     <?php
+    /*require "../../vendor/autoload.php";
     require "../../source/Model/DB.php";
-    $bdd = DB::getInstance();
 
     if (isset($_POST['send'])) {
         if (isset($_POST['name'])) {
-            $stmt = $bdd->prepare("
-        INSERT INTO project (name, time, date) VALUES (:name, :time, :date)
-    ");
-            $stmt->bindValue(":name", htmlentities(trim(ucfirst($_POST['name']))));
-            $stmt->bindValue(":time", "00:00:00");
-            $stmt->bindValue(":date", date("Y-m-d"));
-            $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                header("Location: ../index.php?success=0");
+            $project = R::dispense('project');
+
+            $project->name = $_POST['name'];
+            $project->time = "00:00:00";
+            $project->date = date("d/m/Y");
+            $project->user_fk = $_SESSION['id'];
+
+            try {
+                R::store($project);
+            } catch (SQL $e) {
+                header("Location: ../../View/erreur");
+                echo "Une erreur est survenue !";
             }
-            else {
-                echo "Erreur lors de l'ajout du projet !";
-            }
-        }
+        }*/
     }
-}

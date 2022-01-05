@@ -4,6 +4,8 @@ use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Entity\Project;
 use Chloe\Timetracking\Model\Manager\ProjectManager;
 use Chloe\Timetracking\Model\Manager\TodoManager;
+use RedBeanPHP\R;
+use RedBeanPHP\RedException\SQL;
 
 session_start();
 
@@ -35,17 +37,32 @@ switch ($requestType) {
         ];
 
         $data = json_decode(file_get_contents('php://input'));
-        if (isset($data->name, $data->time, $data->date, $data->user_fk)) {
+        if (isset($data->name, $data->time, $data->date)) {
 
             $name = htmlentities(trim(ucfirst($data->name)));
 
-            $content = new Project(null, $name, $data->time, $data->date, $_SESSION['id']);
+            /*$content = new Project(null, $name, $data->time, $data->date, $_SESSION['id']);
             $result = $manager->add($content);
             if (!$result) {
                 $response = [
                     'error' => 'error1',
                     'message' => 'Une erreur est survenue.',
                 ];
+            }*/
+
+            $project = R::dispense("project");
+
+            $project->name = $data->name;
+            $project->time = $data->time;
+            $project->date = $data->date;
+            $project->userFk = $_SESSION['id'];
+
+            try {
+                R::store($project);
+                echo print_r(json_encode($project));
+            }
+            catch (SQL $e) {
+                echo "Une erreur est survenue !";
             }
         }
 
@@ -96,7 +113,7 @@ switch ($requestType) {
     case 'DELETE':
         $response = [
             'error' => 'success',
-            'message' => 'Le lien a été supprimé avec succès.',
+            'message' => 'Le projet a été supprimé avec succès.',
         ];
 
         $data = json_decode(file_get_contents('php://input'));

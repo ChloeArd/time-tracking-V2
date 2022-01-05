@@ -4,6 +4,8 @@ use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Manager\TodoManager;
 
 session_start();
+
+require "../../../vendor/autoload.php";
 require_once '../../../DB.php';
 
 $bdd = DB::getInstance();
@@ -11,35 +13,18 @@ $bdd = DB::getInstance();
 header('Content-Type: application/json');
 
 $requestType = $_SERVER['REQUEST_METHOD'];
-
 $manager = new TodoManager();
 
 switch ($requestType) {
     case 'GET':
-        $response = [];
-        if(isset($_GET['id'], $_GET['id2'])) {
-            //$manager->getTodo($_GET['id2'], $_GET['id']);
-
-            $stmt = $bdd->prepare("SELECT * FROM todo WHERE id = :id AND project_fk = :project_fk");
-            $stmt->bindValue(":id", $_GET['id2']);
-            $stmt->bindValue(":project_fk", $_GET['id']);
+        if(isset($_GET['id'])) {
+            $manager->getTodo($_GET['id']);
         }
         else {
-            $stmt = $bdd->prepare("SELECT * FROM todo");
+            $manager->getTodos();
         }
-        if($stmt->execute()) {
-            foreach ($stmt->fetchAll() as $info) {
-                $response[] = [
-                    'id' => $info['id'],
-                    'name' => $info['name'],
-                    'time' => $info['time'],
-                    'date' => $info['date'],
-                    'project_fk' => $info['project_fk']
-                ];
-            }
-        }
-        echo json_encode($response);
-        return json_encode($response);
+
+        return "";
 
     case 'POST':
         $response = [
@@ -121,6 +106,35 @@ switch ($requestType) {
             ];
         }
 
+        echo json_encode($response);
+        return json_encode($response);
+
+    case 'DELETE':
+
+        $response = [
+            'error' => 'success',
+            'message' => 'La tâche a été supprimé avec succès.',
+        ];
+
+        $data = json_decode(file_get_contents('php://input'));
+        if (isset($data->id)) {
+            $id = intval($data->id);
+
+            $result = $manager->delete($id);
+
+            if (!$result) {
+                $response = [
+                    'error' => 'error1',
+                    'message' => 'Une erreur est survenue.',
+                ];
+            }
+        }
+        else {
+            $response = [
+                'error' => 'error2',
+                'message' => 'L\'id est manquant.',
+            ];
+        }
         echo json_encode($response);
         return json_encode($response);
 }

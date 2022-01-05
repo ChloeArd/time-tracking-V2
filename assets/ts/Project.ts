@@ -16,6 +16,7 @@ export class Project {
         xhr.onload = function () {
             let response: string = xhr.responseText;
             let json: any = JSON.parse(response);
+            console.log(response);
 
             for (let i = 0; i < json.length; i++) {
                 let projects = document.getElementById("projectsHome") as HTMLDivElement;
@@ -48,6 +49,7 @@ export class Project {
                 let xhr2: XMLHttpRequest = new XMLHttpRequest();
                 xhr2.onload = function () {
                     let response: string = xhr2.responseText;
+                    console.log(response);
                     let json2: any = JSON.parse(response);
 
                     // dsiplay a list of a project
@@ -153,6 +155,44 @@ export class Project {
         xhr.send();
     }
 
+    public add() {
+        let addProject = document.getElementById("addProject") as HTMLInputElement;
+
+        addProject.addEventListener("click", function () {
+            let name = document.getElementById('name') as HTMLInputElement;
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            /*xhr.onload = function () {
+                let response = JSON.parse(xhr.responseText);
+                if (response.hasOwnProperty('error') && response.hasOwnProperty('message')) {
+                    if (response.error === "success") {
+                        window.location.href = "index.php?success=0&message=";
+                    }
+                    if (response.error === "error1") {
+                        window.location.href = "index.php?controller=link&action=add&error=1";
+                    }
+                    if (response.error === "error2") {
+                        window.location.href = "index.php?controller=link&action=add&error=2&message=";
+                    }
+                    if (response.error === "error3") {
+                        window.location.href = "index.php?controller=link&action=add&error=3&message=";
+                    }
+                }
+            }*/
+
+            let data = {
+                'name': name.value,
+                'date': new Date().toLocaleDateString(),
+                'time': "00:00:00",
+            }
+
+            xhr.open('POST', './../api/project', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
     // When the timer ends I change the date and time of the project that of the task
     public edit (idProject : string, time : string, id: string, timeTodo: string) {
         let idTodo = id.replace("time", "");
@@ -160,7 +200,6 @@ export class Project {
         submitClick?.addEventListener("click", function () {
             let xhr: XMLHttpRequest = new XMLHttpRequest();
             let idP = idProject.replace("time", "");
-
 
             let data = {
                 'id': idP,
@@ -174,6 +213,24 @@ export class Project {
             alert(JSON.stringify(data));
 
             xhr.open('PUT', './../api/project');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
+    public delete() {
+        let deleteProject = document.getElementById("delecteProject") as HTMLInputElement;
+
+        deleteProject.addEventListener("click", function () {
+            let id = document.getElementById('id') as HTMLInputElement;
+
+            let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            let data = {
+                'id': id.value,
+            }
+
+            xhr.open('DELETE', './../api/project');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(data));
         });
