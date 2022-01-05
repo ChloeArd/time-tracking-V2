@@ -38,6 +38,7 @@ switch ($requestType) {
         $data = json_decode(file_get_contents('php://input'));
         if (isset($data->name, $data->time, $data->date)) {
 
+            //$manager->add(htmlentities(trim(ucfirst($data->name))), $data->time, $data->date, $_SESSION['id']);
             $project = R::dispense("project");
 
             $project->name = htmlentities(trim(ucfirst($data->name)));

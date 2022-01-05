@@ -36,12 +36,13 @@ switch ($requestType) {
         $data = json_decode(file_get_contents('php://input'));
         if (isset($data->name, $data->date, $data->time, $data->projectFk)) {
 
+            //$manager->add(htmlentities(trim(ucfirst($data->name))), $data->time, $data->date, $data->projectFk);
             $project = R::dispense("todo");
 
             $project->name = htmlentities(trim(ucfirst($data->name)));
             $project->time = $data->time;
             $project->date = $data->date;
-            $project->projectFk = intval($data->projectFk);
+            $project->projectFk = $data->projectFk;
 
             try {
                 R::store($project);

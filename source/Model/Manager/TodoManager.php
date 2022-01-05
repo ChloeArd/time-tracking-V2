@@ -30,13 +30,13 @@ class TodoManager {
      * add a task
      * @param Todo $todo
      */
-    public function add(Todo $todo) {
-        $list = R::dispense("user");
+    public function add(string $name, string $time, string $date, Project $project_fk) {
+        $list = R::dispense("todo");
 
-        $list->name = $todo->getName();
-        $list->time = $todo->getTime();
-        $list->date = $todo->getDate();
-        $list->projectFk = $todo->getProjectFk()->getId();
+        $list->name = $name;
+        $list->time = $time;
+        $list->date = $date;
+        $list->projectFk = $project_fk;
 
         try {
             R::store($list);

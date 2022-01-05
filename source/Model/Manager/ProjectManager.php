@@ -3,6 +3,7 @@
 namespace Chloe\Timetracking\Model\Manager;
 
 use Chloe\Timetracking\Model\Entity\Project;
+use Chloe\Timetracking\Model\Entity\User;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException\SQL;
 
@@ -31,13 +32,13 @@ class ProjectManager {
      * add a project
      * @param Project $proj
      */
-    public function add(Project $proj): bool {
+    public function add(string $name, string $time, string $date, User $user_fk) {
         $project = R::dispense("project");
 
-        $project->name = $proj->getName();
-        $project->time = $proj->getTime();
-        $project->date = $proj->getDate();
-        $project->userFk = $proj->getUserFk()->getId();
+        $project->name = $name;
+        $project->time = $time;
+        $project->date = $date;
+        $project->userFk = $user_fk;
 
         try {
             R::store($project);
@@ -45,7 +46,6 @@ class ProjectManager {
         catch (SQL $e) {
             echo "Une erreur est survenue !";
         }
-        return true;
     }
 
     /**
