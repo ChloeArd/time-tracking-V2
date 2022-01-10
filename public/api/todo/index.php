@@ -5,7 +5,6 @@ use Chloe\Timetracking\Model\Manager\TodoManager;
 use RedBeanPHP\RedException\SQL;
 use RedBeanPHP\R;
 
-
 session_start();
 
 require "../../../vendor/autoload.php";
