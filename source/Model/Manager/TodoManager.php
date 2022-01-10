@@ -22,7 +22,14 @@ class TodoManager {
      * @param int $id
      */
     public function getTodo(int $project_fk, int $id) {
-        $todo = R::findOne("todo", "id = ? AND project_fk = ?", [$id, $project_fk]);
+        // one to many
+        $todo = R::findOne("todo", "id = ?", [$id]);
+
+        $project = R::dispense('project');
+        $project->id = $project_fk;
+
+        $project->ownProductList[] = $todo;
+
         print_r(json_encode($todo));
     }
 

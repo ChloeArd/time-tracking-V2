@@ -24,8 +24,15 @@ class ProjectManager {
      * @param int $user_fk
      */
     public function getProject(int $id, int $user_fk) {
-        $project = R::findOne("project", "id = ? AND user_fk = ?", [$id, $user_fk]);
-        print_r(json_encode($project));
+        // one to many
+        $project = R::findOne("project", "id = ?", [$id]);
+
+        $user = R::dispense('user');
+        $user->id = $user_fk;
+
+        $user->ownProductList[] = $project;
+
+        print_r(json_encode($user));
     }
 
     /**
