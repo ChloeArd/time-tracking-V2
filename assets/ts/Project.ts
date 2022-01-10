@@ -81,7 +81,6 @@ export class Project {
     // View one project
     public viewOnly()  {
         let url: string = document.location.search;
-        let urlId: number = parseInt(url.replace("?id=", ""));
 
         let xhr: XMLHttpRequest = new XMLHttpRequest();
         xhr.onload = function () {

@@ -3,6 +3,8 @@
 use Chloe\Timetracking\Model\DB;
 use Chloe\Timetracking\Model\Manager\TodoManager;
 use RedBeanPHP\RedException\SQL;
+use RedBeanPHP\R;
+
 
 session_start();
 
@@ -50,6 +52,8 @@ switch ($requestType) {
                 echo "Une erreur est survenue !";
             }
         }
+
+        break;
 
     case 'PUT':
         $response = [
